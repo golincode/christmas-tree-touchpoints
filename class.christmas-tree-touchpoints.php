@@ -8,7 +8,7 @@
  * @copyright 	2014 Adam Onishi
  */
 
-class ArcCustomCampaign
+class WaaChristmasTouchpoints
 {
 	protected static $version = '0.0.1';
 
@@ -140,12 +140,12 @@ class ArcCustomCampaign
 		$args = array(
 			'labels'             => $labels,
 			'public'             => true,
-			'rewrite'            => array( 'slug' => 'every-little-helpers',
+			'rewrite'            => array( 'slug' => 'every-little-helpers' ),
 			'capability_type'    => 'post',
 			'has_archive'        => false,
 			'hierarchical'       => false,
 			'menu_position'      => 5,
-			'supports'           => array( 'title', 'editor', 'author', 'revisions', 'page-attributes' )
+			'supports'           => array( 'title', 'editor', 'author', 'revisions', 'page-attributes' ),
 		);
 
 		register_post_type( 'waa_xmas_touchpoints', $args );
