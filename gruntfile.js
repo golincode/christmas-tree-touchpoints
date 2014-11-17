@@ -29,7 +29,11 @@ module.exports = function(grunt) {
 			dist: {
 				src: ['assets/js/modules/*.js', 'assets/js/src/*.js'],
 				dest: 'js/<%= pkg.name %>.js'
-			}
+			},
+			modernizr: {
+				src: ['assets/js/vendor/modernizr.min.js'],
+				dest: 'js/modernizr.js'
+			},
 		},
 		// JS minification
 		uglify: {

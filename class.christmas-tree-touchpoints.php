@@ -18,21 +18,12 @@ class WaaChristmasTouchpoints
 
 	private function __construct()
 	{
-		// Setup post type
+		// Setup post type & custom fields
 		add_action( 'init', array( $this, 'setupPostType') );
+		add_action( 'init', array( $this, 'setupCustomFields') );
 
 		// Include Stylesheet/scripts
-		// add_action( 'wp_enqueue_scripts', array( $this, 'frontendScriptsStyles' ), 12 );
-		// add_action( 'admin_enqueue_scripts', array( $this, 'adminScriptsStyles') );
-
-		// Setup custom fields
-		// add_action ('add_meta_boxes', array( $this, 'setupCustomField' ) );
-		// add_action ('save_post', array( $this, 'saveCustomField' ) );
-
-		// Ajax callback to restore CSS revisions
-		// add_action('wp_ajax_restore_campaign_css', array( $this, 'restoreCampaignCss' ) );
-
-		// add_action( 'wp_head', array($this, 'insertCustomStyles'), 50 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'frontendScriptsStyles' ), 12 );
 
 	}
 
@@ -112,10 +103,16 @@ class WaaChristmasTouchpoints
 	 */
 	public function frontendScriptsStyles()
 	{
-		// CSS for the front end
-		// if( !is_admin() && $this->isTemplate('templates/campaign.php') ) {
+		$file = dirname(__FILE__) . '/christmas-tree-touchpoints.php';
+		$plugin_url = plugin_dir_url($file);
 
-		// }
+		// CSS for the front end
+		if( ! is_admin() && $this->isTemplate('templates/christmas-touchpoints.php') ) {
+			wp_enqueue_style( 'waa-xmas', $plugin_url . 'css/xmas.css', false, $this->version, 'screen' );
+
+			wp_enqueue_script( 'waa-tree-modernizr', $plugin_url . 'js/modernizr.js', false, $this->version, false );
+			// wp_enqueue_script( 'waa-tree-script', $plugin_url . 'js/christmas-tree-touchpoints.js', false, $this->version, true );
+		}
 	}
 
 	public function setupPostType()
@@ -138,15 +135,18 @@ class WaaChristmasTouchpoints
 		);
 
 		$args = array(
-			'labels'             => $labels,
-			'public'             => true,
-			'rewrite'            => array( 'slug' => 'every-little-helpers' ),
-			'capability_type'    => 'post',
-			'has_archive'        => false,
-			'hierarchical'       => false,
-			'menu_position'      => 2,
-			'menu_icon'          => 'dashicons-star-filled',
-			'supports'           => array( 'title', 'author', 'revisions', 'page-attributes' ),
+			'labels'              => $labels,
+			'public'              => true,
+			'rewrite'             => array( 'slug' => 'every-little-helpers' ),
+			'capability_type'     => 'post',
+			'has_archive'         => false,
+			'exclude_from_search' => true,
+			'show_in_nav_menus'   => false,
+			'hierarchical'        => false,
+			'publicly_queryable'  => false,
+			'menu_position'       => 2,
+			'menu_icon'           => 'dashicons-star-filled',
+			'supports'            => array( 'title', 'author', 'revisions', 'page-attributes' ),
 		);
 
 		register_post_type( 'waa_xmas_touchpoints', $args );
@@ -165,7 +165,7 @@ class WaaChristmasTouchpoints
 						'label' => 'Touchpoints',
 						'name' => 'waa_touchpoints',
 						'type' => 'repeater',
-						'instructions' => 'Add examples of good customer feedback on	a variety of social platforms (max 6 per day)',
+						'instructions' => 'Add examples of good customer feedback on a variety of social platforms (max 6 per day)',
 						'sub_fields' => array (
 							array (
 								'key' => 'field_5469d384b2fc7',
@@ -185,7 +185,7 @@ class WaaChristmasTouchpoints
 								'label' => 'Image',
 								'name' => 'waa_ctp_image',
 								'type' => 'image',
-								'instructions' => 'Should be 300x180px in size, optimised to about 70% jpg when exported from Photoshop.',
+								'instructions' => 'Should be 400x240px in size, optimised to about 70% jpg when exported from Photoshop.',
 								'column_width' => '',
 								'save_format' => 'url',
 								'preview_size' => 'thumbnail',

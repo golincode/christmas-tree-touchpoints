@@ -4,8 +4,8 @@
 .sass-cache
 
 # NPM
-node_modules
+node_modules/
 
 # Compiled CSS & JS
-js
-css
+js/
+css/
