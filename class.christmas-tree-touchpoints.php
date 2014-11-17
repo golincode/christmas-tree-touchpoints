@@ -144,10 +144,122 @@ class WaaChristmasTouchpoints
 			'capability_type'    => 'post',
 			'has_archive'        => false,
 			'hierarchical'       => false,
-			'menu_position'      => 5,
-			'supports'           => array( 'title', 'editor', 'author', 'revisions', 'page-attributes' ),
+			'menu_position'      => 2,
+			'menu_icon'          => 'dashicons-star-filled',
+			'supports'           => array( 'title', 'author', 'revisions', 'page-attributes' ),
 		);
 
 		register_post_type( 'waa_xmas_touchpoints', $args );
+	}
+
+	public function setupCustomFields()
+	{
+		if(function_exists("register_field_group"))
+		{
+			register_field_group(array (
+				'id' => 'acf_xmas-touchpoints',
+				'title' => 'Xmas Touchpoints',
+				'fields' => array (
+					array (
+						'key' => 'field_5469d34db2fc6',
+						'label' => 'Touchpoints',
+						'name' => 'waa_touchpoints',
+						'type' => 'repeater',
+						'instructions' => 'Add examples of good customer feedback on	a variety of social platforms (max 6 per day)',
+						'sub_fields' => array (
+							array (
+								'key' => 'field_5469d384b2fc7',
+								'label' => 'Title',
+								'name' => 'waa_ctp_title',
+								'type' => 'text',
+								'column_width' => '',
+								'default_value' => '',
+								'placeholder' => '',
+								'prepend' => '',
+								'append' => '',
+								'formatting' => 'html',
+								'maxlength' => '',
+							),
+							array (
+								'key' => 'field_5469d74a324ae',
+								'label' => 'Image',
+								'name' => 'waa_ctp_image',
+								'type' => 'image',
+								'instructions' => 'Should be 300x180px in size, optimised to about 70% jpg when exported from Photoshop.',
+								'column_width' => '',
+								'save_format' => 'url',
+								'preview_size' => 'thumbnail',
+								'library' => 'all',
+							),
+							array (
+								'key' => 'field_5469d407b2fc8',
+								'label' => 'Content',
+								'name' => 'waa_ctp_content',
+								'type' => 'textarea',
+								'column_width' => '',
+								'default_value' => '',
+								'placeholder' => '',
+								'maxlength' => '',
+								'rows' => '',
+								'formatting' => 'br',
+							),
+							array (
+								'key' => 'field_5469d421b2fc9',
+								'label' => 'Link',
+								'name' => 'waa_ctp_link',
+								'type' => 'text',
+								'column_width' => '',
+								'default_value' => '',
+								'placeholder' => '',
+								'prepend' => '',
+								'append' => '',
+								'formatting' => 'html',
+								'maxlength' => '',
+							),
+							array (
+								'key' => 'field_5469d459b2fca',
+								'label' => 'Icon',
+								'name' => 'waa_ctp_icon',
+								'type' => 'select',
+								'column_width' => '',
+								'choices' => array (
+									'offer' => 'Colleague offer',
+									'facebook' => 'Facebook',
+									'news' => 'News',
+									'twitter' => 'Twitter',
+									'yammer' => 'Yammer',
+									'youtube' => 'YouTube',
+								),
+								'default_value' => '',
+								'allow_null' => 0,
+								'multiple' => 0,
+							),
+						),
+						'row_min' => '',
+						'row_limit' => 6,
+						'layout' => 'row',
+						'button_label' => 'Add Touchpoint',
+					),
+				),
+				'location' => array (
+					array (
+						array (
+							'param' => 'post_type',
+							'operator' => '==',
+							'value' => 'waa_xmas_touchpoints',
+							'order_no' => 0,
+							'group_no' => 0,
+						),
+					),
+				),
+				'options' => array (
+					'position' => 'acf_after_title',
+					'layout' => 'no_box',
+					'hide_on_screen' => array (
+					),
+				),
+				'menu_order' => 0,
+			));
+		}
 	}
 }
