@@ -47,12 +47,12 @@ class WaaChristmasTouchpoints
 	 */
 	public function copyTemplate()
 	{
-		// $template = plugin_dir_path( __FILE__ ) . '/templates/campaign.php';
-		// $dest = get_stylesheet_directory() . '/templates/campaign.php';
+		$template = plugin_dir_path( __FILE__ ) . '/templates/christmas-touchpoints.php';
+		$dest = get_stylesheet_directory() . '/templates/christmas-touchpoints.php';
 
-		// if( ! file_exists( $dest ) ) {
-		// 	copy( $template, $dest );
-		// }
+		if( ! file_exists( $dest ) ) {
+			copy( $template, $dest );
+		}
 	}
 
 	/**
@@ -61,16 +61,16 @@ class WaaChristmasTouchpoints
 	 */
 	public function removeTemplate()
 	{
-		// $dest = get_stylesheet_directory() . '/templates/campaign.php';
-		// $template_dir = get_stylesheet_directory() . '/templates';
+		$dest = get_stylesheet_directory() . '/templates/christmas-touchpoints.php';
+		$template_dir = get_stylesheet_directory() . '/templates';
 
-		// if( file_exists( $dest ) ) {
-		// 	unlink( $dest );
-		// }
+		if( file_exists( $dest ) ) {
+			unlink( $dest );
+		}
 
-		// if ( $files = @scandir($template_dir) && (count($files) > 2) ) {
-		// 	rmdir($template_dir);
-		// }
+		if ( $files = @scandir($template_dir) && (count($files) > 2) ) {
+			rmdir($template_dir);
+		}
 	}
 
 	/**
