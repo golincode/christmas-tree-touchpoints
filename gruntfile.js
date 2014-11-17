@@ -64,6 +64,10 @@ module.exports = function(grunt) {
 			jshint_dev: {
 				files: ['<%= jshint.files %>'],
 				tasks: ['jshint', 'concat']
+			},
+			sass_dev: {
+				files: ['assets/scss/**/*.scss'],
+				tasks: ['sass']
 			}
 		}
 	});
