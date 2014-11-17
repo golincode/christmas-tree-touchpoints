@@ -1,0 +1,81 @@
+// MIXINS
+// ===================================================================================
+
+// HIDDEN CLASSES
+// -------------------------------------------------------
+
+%clearfix {
+	zoom:1;
+	&:before, &:after {
+		content: '\0020';
+		display: block;
+		height: 0;
+		overflow: hidden;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+/* Hide the text of an element - for use with buttons with background images etc */
+%hide-text {
+	display:block;
+	text-indent:100%;
+	white-space:nowrap;
+	overflow:hidden;
+}
+
+/* Hide from both screenreaders and browsers: h5bp.com/u */
+%hidden {
+	display: none !important;
+	visibility: hidden;
+}
+
+/* Hide only visually, but have it available for screenreaders: h5bp.com/v */
+%visuallyhidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+
+	/*
+	 * Extends the .visuallyhidden class to allow the element to be focusable
+	 * when navigated to via the keyboard: h5bp.com/p
+	 */
+
+	&.focusable:active,
+	&.focusable:focus {
+		clip: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		position: static;
+		width: auto;
+	}
+}
+
+// GENERAL MIXINS
+// -------------------------------------------------------
+
+// Rems with pixel fallback for any property
+// @author @BPScott (https://github.com/BPScott/bpscott.github.io/blob/develop/source/stylesheets/vendor/_rem.scss)
+@mixin rem($property, $px-values, $baseline-px: $base-font-size) {
+  // Convert the baseline into rems
+  $baseline-rem: $baseline-px / 1rem;
+
+  // Create an empty list that we can dump values into
+  $rem-values: ();
+  @each $value in $px-values {
+	// If the value is zero, return 0
+	$rem-values: append($rem-values, if($value == 0, $value, $value / $baseline-rem));
+  }
+
+  // Output the property's px and rem values
+  #{$property}: $px-values;
+  #{$property}: $rem-values;
+}
+

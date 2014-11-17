@@ -1,0 +1,14 @@
+// Search a list of lists ($haystack) for value ($needle) at the first position.
+// Returns that item in the list, or false if not found.
+// Based on breakup-list-key-search mixin by @BPScott - (https://github.com/bpscott/breakup)
+
+@function get-list-value($haystack, $needle) {
+
+	@each $haystack-item in $haystack {
+		@if $needle == nth($haystack-item, 1) {
+			@return nth($haystack-item, 2);
+		}
+	}
+
+	@return false;
+}

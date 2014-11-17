@@ -1,0 +1,20 @@
+/**
+ * COLORS:
+ * 	Tree: #20511e;
+ * 	Trunk: #51321e;
+ */
+
+.tree-container {
+	margin:0;
+	padding:0;
+	background:#c6c6c6 url('images/background/background-stars.jpg') 50% 0 repeat-x;
+	background-attachment:fixed;
+}
+
+.tree-container #tree-canvas {
+	display:block;
+	max-width:100%;
+	margin:0 auto;
+	padding:0;
+	background:url('images/background/background.png') 50% 97% no-repeat;
+}
