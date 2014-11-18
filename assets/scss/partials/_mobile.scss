@@ -1,17 +1,77 @@
+.touchpoints-articles-container {
+	margin:0 -12px;
+	padding:0 12px;
+	background:transparent url(../images/mobile/grey-stars-400.png) 50% 0 repeat;
+}
+
 .advent-day {
+	@extend %clearfix;
+	margin-bottom:20px;
 
 	&__title {
 		width:100%;
 		min-height:112px;
-		padding:29px 0 0 9px;
-		color:#fff;
-		@include font-size(28);
+		margin:0;
+		padding-top:6.75%;
+		color:$clr-white;
+		@include font-size(24);
+		font-size:7vw;
+		line-height:1;
 		text-align:center;
 		background:url(../images/mobile/header-400.png) 50% 0 no-repeat;
+		background-size:100% auto;
+
+		@include tweakpoint(25em) {
+			padding-top:28px;
+			@include font-size(28);
+			background-size:auto;
+		}
 
 		@include hidpi-query() {
 			background-image:url(../images/mobile/header-800.png);
-			background-size:400px 112px;
+
+			@include tweakpoint(25em) {
+				background-size:400px 112px;
+			}
+		}
+	}
+
+	&__container {
+		padding:10px;
+		background-color:$clr-white;
+		border:10px solid $clr-border;
+		border-radius:5px;
+	}
+
+	&__item {
+		margin-bottom:20px;
+		border-bottom:1px solid $clr-black;
+
+		&:last-child {
+			border-bottom:0;
+		}
+	}
+
+	&__image {
+		display:block;
+		max-width:100%;
+		height:auto;
+		margin:10px 0 20px;
+	}
+
+	&__content {
+
+		h3 {
+			margin:0 0 10px;
+			@include font-size(16);
+		}
+
+		a {
+			color:$clr-sky;
+
+			&:hover {
+				color:$clr-stop;
+			}
 		}
 	}
 }
