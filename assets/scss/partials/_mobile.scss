@@ -11,7 +11,7 @@
 	&__title {
 		width:100%;
 		min-height:112px;
-		margin:0;
+		margin:0 0 20px;
 		padding-top:6.75%;
 		color:$clr-white;
 		@include font-size(24);
@@ -37,6 +37,7 @@
 	}
 
 	&__container {
+		@extend %clearfix;
 		padding:10px;
 		background-color:$clr-white;
 		border:10px solid $clr-border;
@@ -50,13 +51,29 @@
 		&:last-child {
 			border-bottom:0;
 		}
+
+		@include breakpoint(small) {
+			float:left;
+			width:50%;
+			padding:0 20px;
+			border-bottom:0;
+
+			&:nth-of-type(2n+1) { clear:left; }
+		}
+
+		@include breakpoint(medium) {
+			width:33.3333%;
+
+			&:nth-of-type(2n+1) { clear:none; }
+			&:nth-of-type(3n+1) { clear:left; }
+		}
 	}
 
 	&__image {
 		display:block;
-		max-width:100%;
+		width:100%;
 		height:auto;
-		margin:10px 0 20px;
+		margin:10px auto 20px;
 	}
 
 	&__content {

@@ -5,9 +5,15 @@
 	text-align:left;
 	width:80px;
 	padding:0 5px;
+	line-height:30px;
 	background:#e5e5e5;
 	border:solid 1px #dddedf;
 	border-radius:50em;
+
+	@include breakpoint(medium) {
+		float:left;
+		margin-left:5px;
+	}
 
 	input {
 		position:absolute;

@@ -12,6 +12,7 @@
 	}
 
 	&__list {
+		@extend %clearfix;
 		list-style:none;
 		margin:0;
 		padding:10px;
@@ -19,10 +20,34 @@
 	}
 
 	&__item {
-		@extend %clearfix;
 		list-style:none;
 		padding:10px 0;
 		line-height:35px;
+
+		@include breakpoint(medium) {
+			float:left;
+			width:16.6666%;
+			padding-right:10px;
+			line-height:20px;
+		}
+	}
+
+	&__name {
+		@include breakpoint(medium) {
+			display:block;
+			clear:both;
+			width:55px;
+			text-align:center;
+		}
+
+		&--offer {
+			@include breakpoint(medium) {
+				position:relative;
+				left:-15px;
+				width:100px;
+			}
+
+		}
 	}
 
 	&__icon {
@@ -31,6 +56,10 @@
 		height:35px;
 		margin-right:10px;
 		background:transparent 0 0 no-repeat;
+
+		@include breakpoint(medium) {
+			margin:0 10px 5px;
+		}
 
 		$icons:('facebook', 'news', 'offer', 'twitter', 'youtube', 'yammer');
 
