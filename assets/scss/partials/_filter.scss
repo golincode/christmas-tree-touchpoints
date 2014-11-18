@@ -1,0 +1,25 @@
+.tp-filter {
+	margin-bottom:20px;
+	padding-top:10px;
+	background-color:$clr-header;
+
+	&__title {
+		margin:0 10px 10px;
+		color:$clr-white;
+		@include font-size(20);
+		font-family:$font-tesco-handmade-bold;
+		text-transform:uppercase;
+	}
+
+	&__list {
+		list-style:none;
+		margin:0;
+		padding:10px;
+		background-color:$clr-grey;
+	}
+
+	&__item {
+		list-style:none;
+		padding:0;
+	}
+}
