@@ -69,6 +69,22 @@
 		}
 	}
 
+	&__icon {
+		float:left;
+		width:20px;
+		height:16px;
+		margin-right:10px;
+		background:transparent 50% 50% no-repeat;
+
+		$icons:('facebook', 'news', 'offer', 'twitter', 'youtube', 'yammer');
+
+		@each $icon in $icons {
+			&--#{$icon} {
+				background-image:url(../images/content-icons/#{$icon}.png);
+			}
+		}
+	}
+
 	&__image {
 		display:block;
 		width:100%;

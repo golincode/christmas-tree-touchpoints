@@ -1,6 +1,11 @@
 .tp-filter {
+	display:none;
 	margin-bottom:20px;
 	background-color:$clr-grey;
+
+	@include has-feature('waa-js') {
+		display:block;
+	}
 
 	&__title {
 		margin:0;
