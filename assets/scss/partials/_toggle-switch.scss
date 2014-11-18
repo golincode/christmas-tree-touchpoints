@@ -1,0 +1,59 @@
+.toggle-switch {
+	float:right;
+	position:relative;
+	overflow:hidden;
+	text-align:left;
+	width:80px;
+	padding:0 5px;
+	background:#e5e5e5;
+	border:solid 1px #dddedf;
+	border-radius:50em;
+
+	input {
+		position:absolute;
+		left:-9999em;
+	}
+
+	&__option {
+		cursor:pointer;
+		display:block;
+		background:none;
+		position:relative;
+		padding:0;
+		min-height:0;
+		width:200px;
+		left:-35px;
+		transition:all ease-in-out 0.5s;
+	}
+
+	&__state--active, &__state--inactive {
+		text-transform:uppercase;
+		padding:0 5px;
+		font-family:Arial;
+		vertical-align:middle;
+		font-size:15px;
+		display:inline-block;
+	}
+
+	&__state--inactive {
+		padding-left:0;
+	}
+
+	&__icon {
+		vertical-align:middle;
+		width:18px;
+		height:18px;
+		background:$clr-stop;
+		border-radius:50em;
+		display:inline-block;
+		transition:all ease-in-out 0.5s;
+	}
+
+	input:checked ~ &__option {
+		left:15px;
+
+		.toggle-switch__icon {
+			background:$clr-sky;
+		}
+	}
+}

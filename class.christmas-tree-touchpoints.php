@@ -115,6 +115,19 @@ class WaaChristmasTouchpoints
 		}
 	}
 
+	public function toggleSwitch($option) {
+		?>
+		<div class="toggle-switch">
+			<input id="switch-<?php echo $option; ?>" type="checkbox" name="filter" value="<?php echo $option; ?>" checked>
+			<label for="switch-<?php echo $option; ?>" class="toggle-switch__option">
+				<span class="toggle-switch__state--active">ON</span>
+				<i class="toggle-switch__icon"></i>
+				<span class="toggle-switch__state--inactive">OFF</span>
+			</label>
+		</div>
+		<?php
+	}
+
 	public function setupPostType()
 	{
 		// Help kids learn post type

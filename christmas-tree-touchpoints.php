@@ -38,3 +38,7 @@ register_deactivation_hook( __FILE__, array( 'WaaChristmasTouchpoints', 'removeT
 
 // Load the plugin (not sure if this is really needed unless we're running the functionality)
 add_action( 'plugins_loaded', array( 'WaaChristmasTouchpoints', 'get_instance' ) );
+
+function waa_toggle_switch($option) {
+	WaaChristmasTouchpoints::toggleSwitch($option);
+}

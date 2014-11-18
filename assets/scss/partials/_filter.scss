@@ -19,7 +19,25 @@
 	}
 
 	&__item {
+		@extend %clearfix;
 		list-style:none;
-		padding:0;
+		padding:10px 0;
+		line-height:35px;
+	}
+
+	&__icon {
+		float:left;
+		width:35px;
+		height:35px;
+		margin-right:10px;
+		background:transparent 0 0 no-repeat;
+
+		$icons:('facebook', 'news', 'offer', 'twitter', 'youtube', 'yammer');
+
+		@each $icon in $icons {
+			&--#{$icon} {
+				background-image:url(../images/items/#{$icon}.png);
+			}
+		}
 	}
 }
