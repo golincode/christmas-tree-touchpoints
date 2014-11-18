@@ -3,7 +3,7 @@
 	position:relative;
 	overflow:hidden;
 	text-align:left;
-	width:80px;
+	width:60px;
 	padding:0 5px;
 	line-height:30px;
 	background:#e5e5e5;
@@ -37,7 +37,7 @@
 		padding:0 5px;
 		font-family:Arial;
 		vertical-align:middle;
-		font-size:15px;
+		@include font-size(14);
 		display:inline-block;
 	}
 
@@ -56,7 +56,7 @@
 	}
 
 	input:checked ~ &__option {
-		left:15px;
+		left:-4px;
 
 		.toggle-switch__icon {
 			background:$clr-sky;

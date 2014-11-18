@@ -1,14 +1,24 @@
 .tp-filter {
 	margin-bottom:20px;
-	padding-top:10px;
-	background-color:$clr-header;
+	background-color:$clr-grey;
 
 	&__title {
-		margin:0 10px 10px;
+		margin:0;
+		padding:10px;
 		color:$clr-white;
 		@include font-size(20);
 		font-family:$font-tesco-handmade-bold;
 		text-transform:uppercase;
+		background-color:$clr-header;
+
+		@include breakpoint(medium) {
+			float:left;
+			width:14%;
+			padding:30px 5px 0 15px;
+			color:$clr-dark;
+			@include font-size(20);
+			background-color:transparent;
+		}
 	}
 
 	&__list {
@@ -16,7 +26,6 @@
 		list-style:none;
 		margin:0;
 		padding:10px;
-		background-color:$clr-grey;
 	}
 
 	&__item {
@@ -26,9 +35,16 @@
 
 		@include breakpoint(medium) {
 			float:left;
-			width:16.6666%;
+			width:20%;
 			padding-right:10px;
+			padding-bottom:0;
 			line-height:20px;
+		}
+	}
+
+	&__list--loggedin &__item {
+		@include breakpoint(medium) {
+			width:14.3333%;
 		}
 	}
 
