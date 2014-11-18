@@ -128,6 +128,27 @@ class WaaChristmasTouchpoints
 		<?php
 	}
 
+	public function pagination($query) {
+
+		$big = 999999999; // need an unlikely integer
+
+		$pagination = paginate_links( array(
+			'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+			'format' => '/page/%#%',
+			'current' => max( 1, get_query_var('paged') ),
+			'total' => $query->max_num_pages,
+			'prev_next'    => True,
+			'prev_text'    => __('‹'),
+			'next_text'    => __('›'),
+		) );
+		?>
+
+		<div class="pagination btn-container">
+			<?php echo str_replace( 'page-numbers', 'btn', $pagination ); ?>
+		</div>
+		<?php
+	}
+
 	public function setupPostType()
 	{
 		// Help kids learn post type

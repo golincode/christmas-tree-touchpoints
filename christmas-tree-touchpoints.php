@@ -42,3 +42,7 @@ add_action( 'plugins_loaded', array( 'WaaChristmasTouchpoints', 'get_instance' )
 function waa_toggle_switch($option) {
 	WaaChristmasTouchpoints::toggleSwitch($option);
 }
+
+function waa_touchpoints_pagination($query) {
+	WaaChristmasTouchpoints::pagination($query);
+}
