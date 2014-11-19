@@ -291,8 +291,6 @@ RENDER = (function () {
 				newX = XMAS_TREE.start.left - (35 + 35 + (12*branch.num));
 			}
 
-			items = UTILS.shuffle(items);
-
 			var gap = ~~((branch.width - (itemSize * (items.length + 1))) / (items.length - 1));
 
 			for( var i=0; i<items.length; i++) {

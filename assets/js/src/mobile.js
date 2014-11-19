@@ -1,7 +1,10 @@
 // Modular JS file
 MOBILE = (function ($) {
 
-	var init = function () {
+	var paged = 0,
+		perPage = 0,
+
+		init = function () {
 			$(domReady);
 		},
 
@@ -12,6 +15,7 @@ MOBILE = (function ($) {
 				maxWidth: 991,
 				onEnter: function() {
 					filtersDropdown();
+					infinteScrollPagination();
 				},
 				onLeave: function () {
 					resetFiltersDropdown();
@@ -43,6 +47,16 @@ MOBILE = (function ($) {
 			$('.tp-filter__title').css('cursor', 'default').removeClass('tp-filter__title--open');
 
 			$('.tp-filter').off('click', '.tp-filter__title');
+		},
+
+		infinteScrollPagination = function() {
+			var $fallback = $('#tree-fallback');
+
+			paged = $fallback.data('paged');
+			perPage = $fallback.data('per-page');
+
+
+
 		};
 
 	return {

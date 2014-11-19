@@ -127,7 +127,8 @@ class WaaChristmasTouchpoints
 		}
 	}
 
-	public function getAllContent() {
+	public function getAllContent()
+	{
 
 		// Get nonce
 		$nonce = $_POST['nonce'];
@@ -158,7 +159,8 @@ class WaaChristmasTouchpoints
 		die( $response );
 	}
 
-	private function getDayContent($post) {
+	private function getDayContent($post)
+	{
 		$rows = get_field('waa_touchpoints', $post->ID);
 
 		$types = array();
@@ -192,7 +194,25 @@ class WaaChristmasTouchpoints
 			);
 	}
 
-	public function toggleSwitch($option) {
+	public function mobilePageination()
+	{
+		// Get nonce
+		$nonce = $_POST['nonce'];
+		// Test nonce
+		if ( ! wp_verify_nonce( $nonce, 'waa-ajax-nonce' ) ) {
+			$response = json_encode( array(
+								'error'   => true,
+								'message' => 'Nonce error!'
+							));
+			die( $response );
+		}
+
+		$content = array();
+		// $touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=' . $per_page . '&paged' . $paged . '&order=ASC');
+	}
+
+	public function toggleSwitch($option)
+	{
 		?>
 		<div class="toggle-switch">
 			<input id="switch-<?php echo $option; ?>" type="checkbox" name="filter" value="<?php echo $option; ?>" checked>
@@ -205,7 +225,8 @@ class WaaChristmasTouchpoints
 		<?php
 	}
 
-	public function pagination($query) {
+	public function pagination($query)
+	{
 
 		$big = 999999999; // need an unlikely integer
 
