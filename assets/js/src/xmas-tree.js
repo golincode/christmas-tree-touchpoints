@@ -51,17 +51,19 @@ XMAS_TREE = (function () {
 			// setupDays(days);
 
 			RENDER.snow(c);
+
+			CONTENT.go();
 		},
 
-		setupDays = function(days) {
+		setupDays = function(days, itemsArray) {
 
-			var items = ['twitter', 'facebook', 'youtube', 'offer', 'news', 'twitter'];
-
-			var ribbonBranch = branches + 1,
+			var items = [],
+				ribbonBranch = branches + 1,
 				rows = 1;
 
 			for( var i=0; i<days; i++ ) {
-				var branch = ribbonBranch - i;
+				var branch = ribbonBranch - i,
+					day = i + 1;
 
 				if( i >= (days - 2) ) {
 					--branch;
@@ -69,8 +71,10 @@ XMAS_TREE = (function () {
 					rows = 2;
 				}
 
-				RENDER.items(c, branch, items, rows);
-				RENDER.ribbon(c, i+1, branch);
+				items = itemsArray[i];
+
+				RENDER.ribbon(c, day, branch);
+				RENDER.items(c, branch, day, items, rows);
 			}
 
 			canvas.onclick = INTERACTIONS.clickHandler;
@@ -126,4 +130,7 @@ XMAS_TREE = (function () {
 
 })();
 
-XMAS_TREE.go();
+if( window.innerWidth > 992 ) {
+	XMAS_TREE.go();
+}
+

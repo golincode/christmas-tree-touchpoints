@@ -1,0 +1,14 @@
+.touchpoints-tree-container {
+	position:relative;
+	margin:0 0 50px;
+	padding:0;
+	background:#c6c6c6 url('../images/background/background-stars.jpg') 50% 0 repeat-x;
+}
+
+.touchpoints-tree-container #tree-canvas {
+	display:block;
+	max-width:100%;
+	margin:0 auto;
+	padding:0;
+	background:url('../images/background/background.png') 50% 97% no-repeat;
+}

@@ -1,5 +1,5 @@
 // Modular JS file
-INTERACTIONS = (function () {
+INTERACTIONS = (function ($) {
 
 	var mouseX = 0,
 		mouseY = 0,
@@ -34,7 +34,6 @@ INTERACTIONS = (function () {
 		},
 
 		clickHandler = function(e) {
-
 			mouseX = e.offsetX;
 			mouseY = e.offsetY;
 
@@ -56,9 +55,17 @@ INTERACTIONS = (function () {
 
 				if (mouseX < tX + size && mouseX > tX && mouseY > tY && mouseY < tY + size) {
 					// open popup!
-					console.log('open popup!');
+					var day = TARGETS[i].day,
+						idx = TARGETS[i].idx;
+
+					CONTENT.renderContent(day, idx);
 				}
 			}
+		},
+
+		filtersDropdown = function () {
+
+			$('.tp-filter__list').slideUp();
 		};
 
 	return {
@@ -66,4 +73,4 @@ INTERACTIONS = (function () {
 		hover : hoverEffect
 	};
 
-})();
+})(jQuery);

@@ -141,7 +141,7 @@ class WaaChristmasTouchpoints
 		}
 
 		$content = array();
-		$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=-1');
+		$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=-1&order=ASC');
 
 		$posts = $touchpoints->posts;
 
@@ -176,6 +176,7 @@ class WaaChristmasTouchpoints
 						'content' => $row['waa_ctp_content'],
 						'title'   => $row['waa_ctp_title'],
 						'link'    => $row['waa_ctp_link'],
+						'type'    => $row['waa_ctp_icon'],
 					);
 
 				}

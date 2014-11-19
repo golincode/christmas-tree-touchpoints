@@ -1,0 +1,104 @@
+.advent-day {
+	@extend %clearfix;
+	margin-bottom:20px;
+
+	&__title {
+		width:100%;
+		min-height:112px;
+		margin:0 0 20px;
+		padding-top:6.75%;
+		color:$clr-white;
+		@include font-size(24);
+		font-size:7vw;
+		line-height:1;
+		text-align:center;
+		background:url(../images/mobile/header-400.png) 50% 0 no-repeat;
+		background-size:100% auto;
+
+		@include tweakpoint(25em) {
+			padding-top:28px;
+			@include font-size(28);
+			background-size:auto;
+		}
+
+		@include hidpi-query() {
+			background-image:url(../images/mobile/header-800.png);
+
+			@include tweakpoint(25em) {
+				background-size:400px 112px;
+			}
+		}
+	}
+
+	&__container {
+		@extend %clearfix;
+		padding:10px;
+		background-color:$clr-white;
+		border:10px solid $clr-border;
+		border-radius:5px;
+	}
+
+	&__item {
+		margin-bottom:20px;
+		border-bottom:1px solid $clr-black;
+
+		&:last-child {
+			border-bottom:0;
+		}
+
+		@include breakpoint(small) {
+			float:left;
+			width:50%;
+			padding:0 20px;
+			border-bottom:0;
+
+			&:nth-of-type(2n+1) { clear:left; }
+		}
+
+		@include breakpoint(medium) {
+			width:33.3333%;
+
+			&:nth-of-type(2n+1) { clear:none; }
+			&:nth-of-type(3n+1) { clear:left; }
+		}
+	}
+
+	&__icon {
+		float:left;
+		width:20px;
+		height:16px;
+		margin-right:10px;
+		background:transparent 50% 50% no-repeat;
+
+		$icons:('facebook', 'news', 'offer', 'twitter', 'youtube', 'yammer');
+
+		@each $icon in $icons {
+			&--#{$icon} {
+				background-image:url(../images/content-icons/#{$icon}.png);
+			}
+		}
+	}
+
+	&__image {
+		display:block;
+		width:100%;
+		height:auto;
+		margin:10px auto 20px;
+	}
+
+	&__content {
+
+		h3 {
+			margin:0 0 10px;
+			@include font-size(16);
+		}
+
+		a {
+			color:$clr-sky;
+
+			&:hover {
+				color:$clr-stop;
+			}
+		}
+	}
+}

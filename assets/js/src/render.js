@@ -9,7 +9,7 @@ RENDER = (function () {
 			'background': ['background'],
 			'snow-flakes': ['big-1', 'big-2', 'big-3', 'small-1', 'small-2', 'small-3'],
 			'decorations': ['bell', 'candy-stick', 'yellow-ribbon', 'star', 'presents'],
-			'items': ['facebook', 'facebook-glow', 'twitter', 'twitter-glow', 'news', 'news-glow', 'youtube', 'youtube-glow', 'offer', 'offer-glow' ],
+			'items': ['facebook', 'facebook-glow', 'twitter', 'twitter-glow', 'news', 'news-glow', 'youtube', 'youtube-glow', 'offer', 'offer-glow', 'yammer', 'yammer-glow' ],
 			'ribbon-big': ['ribbon', 'ribbon-glow'],
 			'leaves': ['top', 'left-1', 'left-2', 'left-3', 'left-4', 'middle-1', 'middle-2', 'middle-3', 'middle-4', 'right-1', 'right-2', 'right-3', 'right-4', 'side-left-1', 'side-left-2', 'side-right-1', 'side-right-2']
 		},
@@ -256,7 +256,7 @@ RENDER = (function () {
 		 * @param  array items - items to display and name
 		 * @param  int day - number of the day
 		 */
-		dayItems = function(c, branch_num, items, rows) {
+		dayItems = function(c, branch_num, day, items, rows) {
 			// If the top two branches (latest 2 days) use the space for two branches
 			// else use just the space for 1 branch
 			// Randomise where items appear, but make sure they have at least a 10px buffer between them
@@ -324,7 +324,8 @@ RENDER = (function () {
 					size: itemImg.width,
 					x: pos.x,
 					y: pos.y,
-					link: 'http://google.com'
+					day: day,
+					idx: i
 				};
 
 				TARGETS.push(t);

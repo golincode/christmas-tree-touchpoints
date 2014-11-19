@@ -1,0 +1,35 @@
+.advent-day__item--popup {
+	position:absolute;
+	top:20px;
+	left:50%;
+	width:380px;
+	margin-left:-190px;
+	padding:20px;
+	background-color:$clr-white;
+	box-shadow:2px 2px 7px rgba($clr-black, 0.4);
+
+	.advent-day__content {
+		float:left;
+		width:220px;
+	}
+}
+
+.advent-day__image--square {
+	float:left;
+	width:100px;
+	height:100px;
+	margin:0 20px 20px 0;
+	background:transparent 50% 50% no-repeat;
+	background-size:cover;
+}
+
+.advent-day__close {
+	position:absolute;
+	top:10px;
+	right:10px;
+	width:16px;
+	height:16px;
+	color:$clr-stop;
+	background:transparent url(../images/popup/close-button.gif) 0 0 no-repeat;
+	border:0;
+}

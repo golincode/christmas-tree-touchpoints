@@ -8,6 +8,7 @@
 	}
 
 	&__title {
+		position:relative;
 		margin:0;
 		padding:10px;
 		color:$clr-white;
@@ -16,6 +17,20 @@
 		text-transform:uppercase;
 		background-color:$clr-header;
 
+		&:after {
+			content:'';
+			position:absolute;
+			top:50%;
+			right:15px;
+			display:block;
+			width:20px;
+			height:13px;
+			margin-top:-6px;
+			background:transparent url(../images/mobile/dropdown-arrow.png) 0 0 no-repeat;
+		}
+
+		&--open:after { background-position:0 100%; }
+
 		@include breakpoint(medium) {
 			float:left;
 			width:14%;
@@ -23,6 +38,10 @@
 			color:$clr-dark;
 			@include font-size(20);
 			background-color:transparent;
+
+			@include has-feature('has-js') {
+				&:after { display:none; }
+			}
 		}
 	}
 
