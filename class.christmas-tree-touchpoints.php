@@ -25,6 +25,10 @@ class WaaChristmasTouchpoints
 		// Include Stylesheet/scripts
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontendScriptsStyles' ), 12 );
 
+		// Add actions for ajax content
+		add_action('wp_ajax_waa_get_tp_content', array( $this, 'getAllContent' ) );
+		add_action('wp_ajax_nopriv_waa_get_tp_content', array( $this, 'getAllContent' ) );
+
 	}
 
 	public static function get_instance()
@@ -111,8 +115,80 @@ class WaaChristmasTouchpoints
 			wp_enqueue_style( 'waa-xmas', $plugin_url . 'css/xmas.css', false, $this->version, 'screen' );
 
 			wp_enqueue_script( 'waa-tree-modernizr', $plugin_url . 'js/modernizr.js', false, $this->version, false );
-			// wp_enqueue_script( 'waa-tree-script', $plugin_url . 'js/christmas-tree-touchpoints.js', false, $this->version, true );
+			wp_enqueue_script( 'waa-tree-script', $plugin_url . 'js/christmas-tree-touchpoints.js', false, $this->version, true );
+
+
+			$ajaxData = array(
+				'url' => admin_url('admin-ajax.php' ),
+				'waaAjaxNonce' => wp_create_nonce( 'waa-ajax-nonce' ),
+			);
+
+			wp_localize_script( 'waa-tree-script', 'waaAjaxData', $ajaxData );
 		}
+	}
+
+	public function getAllContent() {
+
+		// Get nonce
+		$nonce = $_POST['nonce'];
+		// Test nonce
+		if ( ! wp_verify_nonce( $nonce, 'waa-ajax-nonce' ) ) {
+			$response = json_encode( array(
+								'error'   => true,
+								'message' => 'Nonce error!'
+							));
+			die( $response );
+		}
+
+		$content = array();
+		$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=-1');
+
+		$posts = $touchpoints->posts;
+
+		foreach( $posts as $post ) {
+			$content[] = $this->getDayContent($post);
+		}
+
+		// Set up and send the response
+		$response = json_encode(array(
+			'results'   => true,
+			'data'      => $content,
+		));
+
+		die( $response );
+	}
+
+	private function getDayContent($post) {
+		$rows = get_field('waa_touchpoints', $post->ID);
+
+		$types = array();
+		$content = array();
+
+		if( is_array($rows) ) {
+
+			foreach( $rows as $row ) {
+
+				if( 'offer' !== $row['waa_ctp_icon'] || is_user_logged_in() ) {
+
+					$types[] = $row['waa_ctp_icon'];
+					$content[] = array(
+						'image'   => $row['waa_ctp_image'],
+						'content' => $row['waa_ctp_content'],
+						'title'   => $row['waa_ctp_title'],
+						'link'    => $row['waa_ctp_link'],
+					);
+
+				}
+
+			}
+
+		}
+
+		return array(
+				'types'   => $types,
+				'content' => $content,
+				'rows'    => $rows,
+			);
 	}
 
 	public function toggleSwitch($option) {
