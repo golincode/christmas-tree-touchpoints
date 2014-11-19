@@ -1,9 +1,7 @@
 // Modular JS file
-TREE_SETUP = (function () {
+SETUP_CONTENT = (function ($) {
 
 	var init = function () {
-			// XMAS_TREE.go();
-
 			var args = {
 				'action': 'waa_get_tp_content'
 			};
@@ -12,13 +10,13 @@ TREE_SETUP = (function () {
 		},
 
 		checkContent = function(data) {
-			console.log(data);
+			// console.log(data);
 		};
 
 	return {
 		go : init
 	};
 
-})();
+})(jQuery);
 
-TREE_SETUP.go();
+SETUP_CONTENT.go();

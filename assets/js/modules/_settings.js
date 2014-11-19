@@ -1,7 +1,7 @@
 // Modular JS file
 var ASSETS = [],
 	TARGETS = [], // All clickable items on the tree
-	DAYS = 5,
+	DAYS = parseInt( document.getElementById('xmas-tree').dataset.days ),
 	BRANCHES = DAYS + 2,
 	windowW = window.innerWidth,
 	windowH = window.innerHeight,

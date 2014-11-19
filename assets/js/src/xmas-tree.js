@@ -1,6 +1,3 @@
-var ASSETS = [],
-	TARGETS = []; // All clickable items on the tree
-
 // Modular JS file
 XMAS_TREE = (function () {
 
@@ -9,8 +6,8 @@ XMAS_TREE = (function () {
 	var	canvas = null,
 		c = null, // init the context variable
 
-		days = 2,
-		branches = days + 2,
+		days = DAYS,
+		branches = DAYS + 2,
 
 		start = {
 			left: UTILS.winW / 2,
@@ -25,7 +22,9 @@ XMAS_TREE = (function () {
 			// Create the canvas and add to page
 			canvas = document.createElement('canvas');
 			canvas.setAttribute('id', 'tree-canvas');
-			document.body.appendChild(canvas);
+			document.getElementById('xmas-tree').appendChild(canvas);
+			document.getElementById('tree-fallback').style.display = 'none';
+			// document.body.appendChild(canvas);
 
 			canvas.width = UTILS.winW;
 			// Add ALL THE THINGS
@@ -48,10 +47,8 @@ XMAS_TREE = (function () {
 			RENDER.leaves(c, branches);
 			RENDER.decs(c);
 
-			setupDays(days);
-
-			canvas.onclick = INTERACTIONS.clickHandler;
-			document.addEventListener('mousemove', INTERACTIONS.hover, false);
+			// This needs to be called by the content setup function
+			// setupDays(days);
 
 			RENDER.snow(c);
 		},
@@ -75,6 +72,9 @@ XMAS_TREE = (function () {
 				RENDER.items(c, branch, items, rows);
 				RENDER.ribbon(c, i+1, branch);
 			}
+
+			canvas.onclick = INTERACTIONS.clickHandler;
+			document.addEventListener('mousemove', INTERACTIONS.hover, false);
 		},
 
 		/**
@@ -112,6 +112,7 @@ XMAS_TREE = (function () {
 
 	return {
 		go : init,
+		setupDays : setupDays,
 
 		days : days,
 		branches : branches,
@@ -124,3 +125,5 @@ XMAS_TREE = (function () {
 	};
 
 })();
+
+XMAS_TREE.go();
