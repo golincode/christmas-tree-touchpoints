@@ -7,5 +7,5 @@
 node_modules/
 
 # Compiled CSS & JS
-js/
-css/
+/js/
+/css/
