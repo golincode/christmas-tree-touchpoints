@@ -36,6 +36,11 @@ XMAS_TREE = (function () {
 			UTILS.loadImages(RENDER.images, buildTree);
 		},
 
+		reset = function() {
+			canvas.parentNode.removeChild(canvas);
+			document.getElementById('tree-fallback').style.display = 'block';
+		},
+
 		buildTree = function() {
 
 			RENDER.trunk(c, branches);
@@ -116,6 +121,7 @@ XMAS_TREE = (function () {
 
 	return {
 		go : init,
+		reset : reset,
 		setupDays : setupDays,
 
 		days : days,
@@ -130,7 +136,13 @@ XMAS_TREE = (function () {
 
 })();
 
-if( window.innerWidth > 992 ) {
-	XMAS_TREE.go();
-}
-
+ssm.addState({
+	id: 'desktop',
+	minWidth: 992,
+	onEnter: function() {
+		XMAS_TREE.go();
+	},
+	onLeave: function () {
+		XMAS_TREE.reset();
+	}
+}).ready();

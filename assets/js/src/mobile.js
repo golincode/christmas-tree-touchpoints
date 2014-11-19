@@ -6,9 +6,18 @@ MOBILE = (function ($) {
 		},
 
 		domReady = function() {
-			if( window.innerWidth <= 992 ) {
-				filtersDropdown();
-			}
+
+			ssm.addState({
+				id: 'mobile',
+				maxWidth: 992,
+				onEnter: function() {
+					filtersDropdown();
+				},
+				onLeave: function () {
+					resetFiltersDropdown();
+				}
+			}).ready();
+
 		},
 
 		filtersDropdown = function () {
@@ -27,6 +36,13 @@ MOBILE = (function ($) {
 
 				$this.toggleClass('tp-filter__title--open');
 			});
+		},
+
+		resetFiltersDropdown = function() {
+			$('.tp-filter__list').slideDown(0);
+			$('.tp-filter__title').css('cursor', 'default').removeClass('tp-filter__title--open');
+
+			$('.tp-filter').off('click', '.tp-filter__title');
 		};
 
 	return {
