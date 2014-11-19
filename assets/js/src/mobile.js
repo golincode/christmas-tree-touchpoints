@@ -9,7 +9,7 @@ MOBILE = (function ($) {
 
 			ssm.addState({
 				id: 'mobile',
-				maxWidth: 992,
+				maxWidth: 991,
 				onEnter: function() {
 					filtersDropdown();
 				},
