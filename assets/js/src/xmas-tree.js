@@ -39,6 +39,8 @@ XMAS_TREE = (function () {
 		reset = function() {
 			canvas.parentNode.removeChild(canvas);
 			document.getElementById('tree-fallback').style.display = 'block';
+
+			document.addEventListener('mousemove', INTERACTIONS.hover, false);
 		},
 
 		buildTree = function() {
