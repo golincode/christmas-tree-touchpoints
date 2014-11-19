@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 			options: {
 			},
 			dist: {
-				src: ['assets/js/modules/*.js', 'assets/js/src/*.js'],
+				src: ['assets/js/vendor/ssm.min.js', 'assets/js/modules/*.js', 'assets/js/src/*.js'],
 				dest: 'js/<%= pkg.name %>.js'
 			},
 			modernizr: {
