@@ -11,7 +11,7 @@ MOBILE = (function ($) {
 			if( UTILS.inViewport($pagination) ) {
 				infinteScrollPagination();
 			}
-		}, 50),
+		}, 150),
 
 		init = function () {
 			$(domReady);
@@ -62,12 +62,17 @@ MOBILE = (function ($) {
 		renderPaginationContent = function(data) {
 			if( data.results === true ) {
 
+				if( data.moar === false ) {
+					window.removeEventListener('scroll', findPagination, false);
+					$pagination.remove();
+				}
+
 				var container = $('<div />');
 				$(container).addClass('temp-new-content');
 				$(container).html(data.content);
+				$fallback.append(container);
 
 				$fallback.data('paged', data.paged);
-				$fallback.append(container);
 
 				$(container).slideUp(0);
 
@@ -75,22 +80,20 @@ MOBILE = (function ($) {
 
 				$(container).slideDown(600, function() {
 					$(this).find('.advent-day').unwrap();
-					doingAjax = false;
 
-					if( data.moar === false ) {
-						window.removeEventListener('scroll', findPagination, false);
-						$pagination.remove();
-					}
+					doingAjax = false;
 				});
 			}
 		},
 
 		infinteScrollPagination = function() {
-			paged = $fallback.data('paged');
-			perPage = $fallback.data('per-page');
 
 			if( ! doingAjax ) {
+				console.log('doing ajax');
 				doingAjax = true;
+
+				paged = $fallback.data('paged');
+				perPage = $fallback.data('per-page');
 
 				// Add loading gif
 				$pagination.addClass('loading');
@@ -109,6 +112,7 @@ MOBILE = (function ($) {
 				};
 
 				MOD_AJAX.post(args, renderPaginationContent);
+
 			}
 
 		};

@@ -4,6 +4,12 @@ CONTENT = (function ($) {
 	var CONTENT = [],
 
 		init = function () {
+			var loader = $('<div />');
+
+			$(loader).addClass('touchpoints-loading-content');
+			$(loader).html('<p>Loading stories...</p>');
+			$('#xmas-tree').append(loader);
+
 			var args = {
 				'action': 'waa_get_tp_content'
 			};
@@ -26,6 +32,8 @@ CONTENT = (function ($) {
 
 			XMAS_TREE.setupDays(DAYS, dayItems);
 
+			removeLoader();
+
 			prepareDayContent(content);
 		},
 
@@ -43,7 +51,6 @@ CONTENT = (function ($) {
 					CONTENT[day].push(dayContent[i]);
 
 				}
-
 			}
 
 		},
@@ -77,6 +84,12 @@ CONTENT = (function ($) {
 				$(this).remove();
 			});
 
+		},
+
+		removeLoader = function() {
+			$('.touchpoints-loading-content').fadeOut(400, function() {
+				$(this).remove();
+			});
 		};
 
 	return {

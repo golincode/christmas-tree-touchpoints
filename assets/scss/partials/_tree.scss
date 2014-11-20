@@ -12,3 +12,23 @@
 	padding:0;
 	background:url('../images/background/background.png') 50% 97% no-repeat;
 }
+
+.touchpoints-loading-content {
+	position:absolute;
+	top:350px;
+	left:50%;
+	width:220px;
+	margin-left:-110px;
+	padding:10px 0 10px 50px;
+	text-transform:uppercase;
+	background:$clr-white url(../images/common/loading.gif) 10px 50% no-repeat;
+	border-radius:5px;
+
+	p {
+		margin:5px 0 0;
+		color:$clr-sky;
+		font-family:$font-tesco-handmade-bold;
+		@include font-size(18);
+		line-height:1;
+	}
+}
