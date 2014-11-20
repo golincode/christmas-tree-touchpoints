@@ -284,7 +284,7 @@ class WaaChristmasTouchpoints
 
 						if( ! in_array( $row['waa_ctp_icon'], $remove ) ) {
 							?>
-							<section class="advent-day__item">
+							<section class="advent-day__item advent-day__item--<?php echo $row['waa_ctp_icon']; ?>">
 								<?php if( $row['waa_ctp_image'] ) { ?>
 									<img src="<?php echo $row['waa_ctp_image']; ?>" alt=" " class="advent-day__image">
 								<?php } ?>

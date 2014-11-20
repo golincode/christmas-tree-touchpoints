@@ -94,7 +94,18 @@ MOBILE = (function ($) {
 
 			setTimeout(function () {
 				FILTERS[name] = $input.prop('checked');
+				applyFilter(name, FILTERS[name]);
 			}, 400);
+		},
+
+		applyFilter = function(name, setting) {
+
+			if( setting ) {
+				$('.advent-day__item--' + name).slideDown();
+			} else {
+				$('.advent-day__item--' + name).slideUp();
+			}
+
 		},
 
 		renderPaginationContent = function(data) {
@@ -102,7 +113,7 @@ MOBILE = (function ($) {
 			if( data.results === true ) {
 
 				if( data.moar === false ) {
-					window.removeEventListener('scroll', findPagination, false);
+					$(window).off('scroll', findPagination);
 					$pagination.remove();
 				}
 
