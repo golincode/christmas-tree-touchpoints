@@ -94,18 +94,37 @@ MOBILE = (function ($) {
 
 			setTimeout(function () {
 				FILTERS[name] = $input.prop('checked');
-				applyFilter(name, FILTERS[name]);
+				applyFilter(name, FILTERS[name], 400);
 			}, 400);
 		},
 
-		applyFilter = function(name, setting) {
+		applyFilter = function(name, setting, timing) {
+
+			var adventDays = $('.advent-day').find('.advent-day__container');
 
 			if( setting ) {
-				$('.advent-day__item--' + name).slideDown();
-			} else {
-				$('.advent-day__item--' + name).slideUp();
-			}
+				$('.advent-day__item--' + name).slideDown(timing, function() {
+					for( var i=0; i < adventDays.length; i++ ) {
 
+						if( $(adventDays[i]).height() > 50 && $(adventDays[i]).find('.advent-day__empty').length ) {
+
+							$(adventDays[i]).find('.advent-day__empty').remove();
+
+						}
+					}
+				});
+			} else {
+				$('.advent-day__item--' + name).slideUp(timing, function() {
+					for( var i=0; i < adventDays.length; i++ ) {
+
+						if( $(adventDays[i]).height() < 50 && $(adventDays[i]).find('.advent-day__empty').length < 1 ) {
+
+							$(adventDays[i]).prepend('<p class="advent-day__empty">No stories avaiable</p>');
+
+						}
+					}
+				});
+			}
 		},
 
 		renderPaginationContent = function(data) {
@@ -130,6 +149,12 @@ MOBILE = (function ($) {
 
 				$(container).slideDown(600, function() {
 					$(this).find('.advent-day').unwrap();
+
+					for( var key in FILTERS ) {
+						if( FILTERS[key] === false ) {
+							applyFilter(key, false, 0);
+						}
+					}
 
 					doingAjax = false;
 				});
@@ -157,8 +182,7 @@ MOBILE = (function ($) {
 				var args = {
 					'action': 'waa_pagination_content',
 					'paged': paged,
-					'posts_per_page': perPage,
-					'filters': FILTERS
+					'posts_per_page': perPage
 				};
 
 				MOD_AJAX.post(args, renderPaginationContent);

@@ -214,18 +214,19 @@ class WaaChristmasTouchpoints
 		$paged = $_POST['paged'];
 		$per_page = $_POST['posts_per_page'];
 		$prev_pages = $paged - 1;
+
 		$moar = true;
-
-		$filters = $_POST['filters'];
-
 		$remove = array();
-		foreach( $filters as $name => $value ) {
-			if( 'false' === $value ) {
-				$remove[] = $name;
-			}
-		}
 
-		if( ! is_user_logged_in() && ! in_array('offer', $remove) ) {
+		// $filters = $_POST['filters'];
+
+		// foreach( $filters as $name => $value ) {
+		// 	if( 'false' === $value ) {
+		// 		$remove[] = $name;
+		// 	}
+		// }
+
+		if( ! is_user_logged_in() ) {
 			$remove[] = 'offer';
 		}
 
