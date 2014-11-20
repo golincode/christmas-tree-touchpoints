@@ -6,6 +6,7 @@ MOBILE = (function ($) {
 		$fallback = $('#tree-fallback'),
 		$pagination = $('.touchpoint-articles-pagination'),
 		doingAjax = false,
+		FILTERS = {},
 
 		findPagination = UTILS.debounce(function() {
 			if( UTILS.inViewport($pagination) ) {
@@ -23,12 +24,18 @@ MOBILE = (function ($) {
 				id: 'mobile',
 				maxWidth: 991,
 				onEnter: function() {
+					readyFilters();
 					filtersDropdown();
-					window.addEventListener('scroll', findPagination, false);
+					// window.addEventListener('scroll', findPagination, false);
+					$(window).on('scroll', findPagination);
+
+					$('.tp-filter').on('click', '.toggle-switch__option', prepareFilter);
 				},
 				onLeave: function () {
 					resetFiltersDropdown();
-					window.removeEventListener('scroll', findPagination, false);
+
+					$(window).off('scroll', findPagination);
+					$('.tp-filter').off('click', '.toggle-switch__option', prepareFilter);
 				}
 			}).ready();
 
@@ -69,7 +76,29 @@ MOBILE = (function ($) {
 
 		},
 
+		readyFilters = function() {
+			var filters = $('input.toggle-switch__input');
+
+			for( var i=0; i<filters.length; i++ ) {
+				name = $(filters[i]).val();
+
+				FILTERS[name] = $(filters[i]).prop('checked');
+			}
+		},
+
+		prepareFilter = function () {
+			var $this = $(this),
+				forInput = $this.attr('for'),
+				$input = $('input#' + forInput),
+				name = $input.val();
+
+			setTimeout(function () {
+				FILTERS[name] = $input.prop('checked');
+			}, 400);
+		},
+
 		renderPaginationContent = function(data) {
+
 			if( data.results === true ) {
 
 				if( data.moar === false ) {
@@ -99,7 +128,6 @@ MOBILE = (function ($) {
 		infinteScrollPagination = function() {
 
 			if( ! doingAjax ) {
-				console.log('doing ajax');
 				doingAjax = true;
 
 				paged = $fallback.data('paged');
@@ -118,7 +146,8 @@ MOBILE = (function ($) {
 				var args = {
 					'action': 'waa_pagination_content',
 					'paged': paged,
-					'posts_per_page': perPage
+					'posts_per_page': perPage,
+					'filters': FILTERS
 				};
 
 				MOD_AJAX.post(args, renderPaginationContent);

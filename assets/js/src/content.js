@@ -83,7 +83,6 @@ CONTENT = (function ($) {
 			$('#xmas-tree').find('.advent-day__item--popup').fadeOut(400, function () {
 				$(this).remove();
 			});
-
 		},
 
 		removeLoader = function() {

@@ -54,9 +54,6 @@ XMAS_TREE = (function () {
 			RENDER.leaves(c, branches);
 			RENDER.decs(c);
 
-			// This needs to be called by the content setup function
-			// setupDays(days);
-
 			RENDER.snow(c);
 
 			CONTENT.go();

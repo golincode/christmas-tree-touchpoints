@@ -26,12 +26,13 @@ class WaaChristmasTouchpoints
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontendScriptsStyles' ), 12 );
 
 		// Add actions for ajax content
+		// All content for tree
 		add_action('wp_ajax_waa_get_tp_content', array( $this, 'getAllContent' ) );
 		add_action('wp_ajax_nopriv_waa_get_tp_content', array( $this, 'getAllContent' ) );
 
+		// Paginated content
 		add_action('wp_ajax_waa_pagination_content', array( $this, 'getPagedContent' ) );
 		add_action('wp_ajax_nopriv_waa_pagination_content', array( $this, 'getPagedContent' ) );
-
 	}
 
 	public static function get_instance()
@@ -215,6 +216,19 @@ class WaaChristmasTouchpoints
 		$prev_pages = $paged - 1;
 		$moar = true;
 
+		$filters = $_POST['filters'];
+
+		$remove = array();
+		foreach( $filters as $name => $value ) {
+			if( 'false' === $value ) {
+				$remove[] = $name;
+			}
+		}
+
+		if( ! is_user_logged_in() && ! in_array('offer', $remove) ) {
+			$remove[] = 'offer';
+		}
+
 		$content = '';
 		$count = 0;
 		$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=' . $per_page . '&paged' . $paged . '&order=ASC');
@@ -230,7 +244,7 @@ class WaaChristmasTouchpoints
 		}
 
 		foreach( $posts as $post ) {
-			$content .= $this->buildPagedContent($post, $count);
+			$content .= $this->buildPagedContent($post, $count, $remove);
 			$count--;
 		}
 
@@ -244,12 +258,13 @@ class WaaChristmasTouchpoints
 			'content' => $content,
 			'paged'   => $paged,
 			'moar'    => $moar,
+			'remove'  => $remove,
 		));
 
 		die( $response );
 	}
 
-	private function buildPagedContent($post, $count)
+	private function buildPagedContent($post, $count, $remove)
 	{
 		$rows = get_field('waa_touchpoints', $post->ID);
 
@@ -267,7 +282,7 @@ class WaaChristmasTouchpoints
 
 					foreach( $rows as $row ) {
 
-						if( 'offer' !== $row['waa_ctp_icon'] || is_user_logged_in() ) {
+						if( ! in_array( $row['waa_ctp_icon'], $remove ) ) {
 							?>
 							<section class="advent-day__item">
 								<?php if( $row['waa_ctp_image'] ) { ?>
@@ -284,7 +299,6 @@ class WaaChristmasTouchpoints
 							</section>
 							<?php
 						}
-
 					}
 				}
 			?>
@@ -302,7 +316,7 @@ class WaaChristmasTouchpoints
 	{
 		?>
 		<div class="toggle-switch">
-			<input id="switch-<?php echo $option; ?>" type="checkbox" name="filter" value="<?php echo $option; ?>" checked>
+			<input id="switch-<?php echo $option; ?>" type="checkbox" name="filter" value="<?php echo $option; ?>" class="toggle-switch__input" checked>
 			<label for="switch-<?php echo $option; ?>" class="toggle-switch__option">
 				<span class="toggle-switch__state--active">ON</span>
 				<i class="toggle-switch__icon"></i>
