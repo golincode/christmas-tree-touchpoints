@@ -1,4 +1,5 @@
 .tp-filter {
+	position:relative;
 	display:none;
 	margin-bottom:20px;
 	background-color:$clr-grey;
@@ -48,8 +49,10 @@
 	&__list {
 		@extend %clearfix;
 		list-style:none;
+		width:100%;
 		margin:0;
 		padding:10px;
+		background-color:$clr-grey;
 	}
 
 	&__item {

@@ -36,7 +36,12 @@ MOBILE = (function ($) {
 
 		filtersDropdown = function () {
 
-			$('.tp-filter__list').slideUp(0);
+			$('.tp-filter__list').slideUp(0).css({
+				'position': 'absolute',
+				'left': 0,
+				'top': $('.tp-filter__title').height
+			});
+
 			$('.tp-filter__title').css('cursor', 'pointer');
 
 			$('.tp-filter').on('click', '.tp-filter__title', function() {
@@ -53,10 +58,15 @@ MOBILE = (function ($) {
 		},
 
 		resetFiltersDropdown = function() {
-			$('.tp-filter__list').slideDown(0);
-			$('.tp-filter__title').css('cursor', 'default').removeClass('tp-filter__title--open');
+			$('.tp-filter__list').slideDown(0).css({
+				'position': '',
+				'left': '',
+				'top': ''
+			});
 
+			$('.tp-filter__title').css('cursor', 'default').removeClass('tp-filter__title--open');
 			$('.tp-filter').off('click', '.tp-filter__title');
+
 		},
 
 		renderPaginationContent = function(data) {
