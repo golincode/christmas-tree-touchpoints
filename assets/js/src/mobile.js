@@ -3,6 +3,15 @@ MOBILE = (function ($) {
 
 	var paged = 0,
 		perPage = 0,
+		$fallback = $('#tree-fallback'),
+		$pagination = $('.touchpoint-articles-pagination'),
+		doingAjax = false,
+
+		findPagination = UTILS.debounce(function() {
+			if( UTILS.inViewport($pagination) ) {
+				infinteScrollPagination();
+			}
+		}, 50),
 
 		init = function () {
 			$(domReady);
@@ -15,10 +24,11 @@ MOBILE = (function ($) {
 				maxWidth: 991,
 				onEnter: function() {
 					filtersDropdown();
-					infinteScrollPagination();
+					window.addEventListener('scroll', findPagination, false);
 				},
 				onLeave: function () {
 					resetFiltersDropdown();
+					window.removeEventListener('scroll', findPagination, false);
 				}
 			}).ready();
 
@@ -49,13 +59,57 @@ MOBILE = (function ($) {
 			$('.tp-filter').off('click', '.tp-filter__title');
 		},
 
-		infinteScrollPagination = function() {
-			var $fallback = $('#tree-fallback');
+		renderPaginationContent = function(data) {
+			if( data.results === true ) {
 
+				var container = $('<div />');
+				$(container).addClass('temp-new-content');
+				$(container).html(data.content);
+
+				$fallback.data('paged', data.paged);
+				$fallback.append(container);
+
+				$(container).slideUp(0);
+
+				$pagination.removeClass('loading');
+
+				$(container).slideDown(600, function() {
+					$(this).find('.advent-day').unwrap();
+					doingAjax = false;
+
+					if( data.moar === false ) {
+						window.removeEventListener('scroll', findPagination, false);
+						$pagination.remove();
+					}
+				});
+			}
+		},
+
+		infinteScrollPagination = function() {
 			paged = $fallback.data('paged');
 			perPage = $fallback.data('per-page');
 
+			if( ! doingAjax ) {
+				doingAjax = true;
 
+				// Add loading gif
+				$pagination.addClass('loading');
+
+				// Get content ajax request
+				if( paged === 0 ) {
+					paged = 2;
+				} else {
+					paged++;
+				}
+
+				var args = {
+					'action': 'waa_pagination_content',
+					'paged': paged,
+					'posts_per_page': perPage
+				};
+
+				MOD_AJAX.post(args, renderPaginationContent);
+			}
 
 		};
 

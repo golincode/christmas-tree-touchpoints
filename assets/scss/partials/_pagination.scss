@@ -1,0 +1,16 @@
+.touchpoint-articles-pagination {
+	@include has-feature('waa-js') {
+		.waa-pagination { display:none; }
+	}
+
+	&.loading {
+		width:100%;
+		height:40px;
+		background:$clr-white url(../images/common/loading.gif) 50% 50% no-repeat;
+	}
+}
+
+// .touchpoints-articles-container .temp-new-content {
+// 	height:0;
+// 	overflow:hidden;
+// }

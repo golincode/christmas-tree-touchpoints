@@ -29,6 +29,9 @@ class WaaChristmasTouchpoints
 		add_action('wp_ajax_waa_get_tp_content', array( $this, 'getAllContent' ) );
 		add_action('wp_ajax_nopriv_waa_get_tp_content', array( $this, 'getAllContent' ) );
 
+		add_action('wp_ajax_waa_pagination_content', array( $this, 'getPagedContent' ) );
+		add_action('wp_ajax_nopriv_waa_pagination_content', array( $this, 'getPagedContent' ) );
+
 	}
 
 	public static function get_instance()
@@ -194,7 +197,7 @@ class WaaChristmasTouchpoints
 			);
 	}
 
-	public function mobilePageination()
+	public function getPagedContent()
 	{
 		// Get nonce
 		$nonce = $_POST['nonce'];
@@ -207,8 +210,92 @@ class WaaChristmasTouchpoints
 			die( $response );
 		}
 
-		$content = array();
-		// $touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=' . $per_page . '&paged' . $paged . '&order=ASC');
+		$paged = $_POST['paged'];
+		$per_page = $_POST['posts_per_page'];
+		$prev_pages = $paged - 1;
+		$moar = true;
+
+		$content = '';
+		$count = 0;
+		$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=' . $per_page . '&paged' . $paged . '&order=ASC');
+
+		$posts = $touchpoints->posts;
+
+		$found = $touchpoints->found_posts;
+
+		if( $paged > 0 ) {
+			$count = $found - ($per_page * $prev_pages);
+		} else {
+			$count = $found;
+		}
+
+		foreach( $posts as $post ) {
+			$content .= $this->buildPagedContent($post, $count);
+			$count--;
+		}
+
+		if( $count = 1 ) {
+			$moar = false;
+		}
+
+		// Set up and send the response
+		$response = json_encode(array(
+			'results' => true,
+			'content' => $content,
+			'paged'   => $paged,
+			'moar'    => $moar,
+		));
+
+		die( $response );
+	}
+
+	private function buildPagedContent($post, $count)
+	{
+		$rows = get_field('waa_touchpoints', $post->ID);
+
+		ob_start();
+		?>
+
+		<article class="advent-day">
+
+			<h2 class="advent-day__title" data-day-number="<?php echo $count; ?>"><?php echo $count; ?></h2>
+
+			<div class="advent-day__container">
+			<?php
+
+				if( is_array($rows) ) {
+
+					foreach( $rows as $row ) {
+
+						if( 'offer' !== $row['waa_ctp_icon'] || is_user_logged_in() ) {
+							?>
+							<section class="advent-day__item">
+								<?php if( $row['waa_ctp_image'] ) { ?>
+									<img src="<?php echo $row['waa_ctp_image']; ?>" alt=" " class="advent-day__image">
+								<?php } ?>
+
+								<div class="advent-day__content">
+
+									<h3><i class="advent-day__icon advent-day__icon--<?php echo $row['waa_ctp_icon']; ?>"></i><?php echo $row['waa_ctp_title']; ?></h3>
+									<p><?php echo $row['waa_ctp_content']; ?></p>
+									<p><a href="<?php echo $row['waa_ctp_link']; ?>">Read more &rsaquo;</a></p>
+
+								</div>
+							</section>
+							<?php
+						}
+
+					}
+				}
+			?>
+			</div>
+		</article>
+		<?php
+
+		$content = ob_get_contents();
+		ob_end_clean();
+
+		return $content;
 	}
 
 	public function toggleSwitch($option)
@@ -241,7 +328,7 @@ class WaaChristmasTouchpoints
 		) );
 		?>
 
-		<div class="pagination btn-container">
+		<div class="pagination btn-container waa-pagination">
 			<?php echo str_replace( 'page-numbers', 'btn', $pagination ); ?>
 		</div>
 		<?php
