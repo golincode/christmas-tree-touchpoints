@@ -163,9 +163,11 @@ class WaaChristmasTouchpoints
 		$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=-1&order=ASC');
 
 		$posts = $touchpoints->posts;
+		$day = $touchpoints->found_posts;
 
 		foreach( $posts as $post ) {
-			$content[] = $this->getDayContent($post, $remove, $post_id);
+			$content[] = $this->getDayContent($post, $remove, $post_id, $day);
+			$day--;
 		}
 
 		// Set up and send the response
@@ -177,18 +179,21 @@ class WaaChristmasTouchpoints
 		die( $response );
 	}
 
-	private function getDayContent($post, $remove, $post_id)
+	private function getDayContent($post, $remove, $post_id, $day)
 	{
 		$rows = get_field('waa_touchpoints', $post->ID);
 
 		$types = array();
 		$content = array();
+		$counter = 0;
 
 		if( is_array($rows) ) {
 
 			foreach( $rows as $row ) {
 
 				if( ! in_array( $row['waa_ctp_icon'], $remove ) ) {
+
+					$contentID = '-' . $day . '-' . $counter;
 
 					$types[] = $row['waa_ctp_icon'];
 					$content[] = array(
@@ -197,11 +202,11 @@ class WaaChristmasTouchpoints
 						'title'   => $row['waa_ctp_title'],
 						'link'    => $row['waa_ctp_link'],
 						'type'    => $row['waa_ctp_icon'],
-						'share'   => $this->shareTools($post_id, false, false),
+						'share'   => $this->shareTools($post_id, $contentID, false),
 					);
 
+					$counter++;
 				}
-
 			}
 
 		}
@@ -339,15 +344,16 @@ class WaaChristmasTouchpoints
 	public function shareTools($post_id, $contentID = false, $echo = true)
 	{
 		$content_hash = '';
+		$url = get_the_permalink($post_id);
 
 		if( $contentID ) {
-			// Make content hash for URL
+			$url .= '#content' . $contentID;
 		}
 
 		// FACEBOOK & TWITTER
 		$share_tools = '<div class="advent-day__share">';
-		$share_tools .= '<a href="https://www.facebook.com/sharer/sharer.php?u=' . urlencode( get_the_permalink($post_id) ) . '" target="_blank" class="post-facebook-share"><i class="fa fa-facebook-square"></i><span> Share</span></a>';
-		$share_tools .= '<a href="https://twitter.com/share?url=' . urlencode( get_the_permalink($post_id) ) . '&text=' . urlencode( get_the_title($post_id) ) . '" target="_blank" class="post-twitter-share"><i class="fa fa fa-twitter"></i><span> Tweet</span></a>';
+		$share_tools .= '<a href="https://www.facebook.com/sharer/sharer.php?u=' . urlencode( $url ) . '" target="_blank" class="post-facebook-share"><i class="fa fa-facebook-square"></i><span> Share</span></a>';
+		$share_tools .= '<a href="https://twitter.com/share?url=' . urlencode( $url ) . '&text=' . urlencode( get_the_title($post_id) ) . '" target="_blank" class="post-twitter-share"><i class="fa fa fa-twitter"></i><span> Tweet</span></a>';
 		$share_tools .= '</div>';
 
 		if( $echo ) {
