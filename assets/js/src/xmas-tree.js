@@ -40,10 +40,18 @@ XMAS_TREE = (function () {
 			canvas.parentNode.removeChild(canvas);
 			document.getElementById('tree-fallback').style.display = 'block';
 
+			canvas.onclick = null;
 			document.removeEventListener('mousemove', INTERACTIONS.hover, false);
 		},
 
-		buildTree = function() {
+		buildTree = function(filtering) {
+
+			if( filtering ) {
+				c.clearRect(0, 0, canvas.width, canvas.height);
+
+				canvas.onclick = null;
+				document.removeEventListener('mousemove', INTERACTIONS.hover, false);
+			}
 
 			RENDER.trunk(c, branches);
 			RENDER.tree(c, false); // Right side
@@ -81,14 +89,21 @@ XMAS_TREE = (function () {
 				RENDER.items(c, branch, day, items, rows);
 			}
 
-			canvas.onclick = INTERACTIONS.clickHandler;
-			document.addEventListener('mousemove', INTERACTIONS.hover, false);
+			console.log(Modernizr);
+
+			// if( Modernizr.touch ) {
+			// 	document.addEventListener('touchend', INTERACTIONS.clickHandler, false);
+			// } else {
+				canvas.onclick = INTERACTIONS.clickHandler;
+				document.addEventListener('mousemove', INTERACTIONS.hover, false);
+			// }
 		};
 
 	return {
 		go : init,
 		reset : reset,
 		setupDays : setupDays,
+		build : buildTree,
 
 		days : days,
 		branches : branches,
@@ -110,5 +125,6 @@ ssm.addState({
 	},
 	onLeave: function () {
 		XMAS_TREE.reset();
+		CONTENT.reset();
 	}
 }).ready();

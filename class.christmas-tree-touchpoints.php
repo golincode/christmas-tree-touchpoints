@@ -145,13 +145,27 @@ class WaaChristmasTouchpoints
 			die( $response );
 		}
 
+		$filters = $_POST['filters'];
+		$remove = array();
+		$post_id = $_POST['post_id'];
+
+		foreach( $filters as $name => $value ) {
+			if( 'false' === $value ) {
+				$remove[] = $name;
+			}
+		}
+
+		if( ! is_user_logged_in() ) {
+			$remove[] = 'offer';
+		}
+
 		$content = array();
 		$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=-1&order=ASC');
 
 		$posts = $touchpoints->posts;
 
 		foreach( $posts as $post ) {
-			$content[] = $this->getDayContent($post);
+			$content[] = $this->getDayContent($post, $remove, $post_id);
 		}
 
 		// Set up and send the response
@@ -163,7 +177,7 @@ class WaaChristmasTouchpoints
 		die( $response );
 	}
 
-	private function getDayContent($post)
+	private function getDayContent($post, $remove, $post_id)
 	{
 		$rows = get_field('waa_touchpoints', $post->ID);
 
@@ -174,7 +188,7 @@ class WaaChristmasTouchpoints
 
 			foreach( $rows as $row ) {
 
-				if( 'offer' !== $row['waa_ctp_icon'] || is_user_logged_in() ) {
+				if( ! in_array( $row['waa_ctp_icon'], $remove ) ) {
 
 					$types[] = $row['waa_ctp_icon'];
 					$content[] = array(
@@ -183,6 +197,7 @@ class WaaChristmasTouchpoints
 						'title'   => $row['waa_ctp_title'],
 						'link'    => $row['waa_ctp_link'],
 						'type'    => $row['waa_ctp_icon'],
+						'share'   => $this->shareTools($post_id, false, false),
 					);
 
 				}
@@ -211,20 +226,13 @@ class WaaChristmasTouchpoints
 			die( $response );
 		}
 
+		$post_id = $_POST['page_id'];
 		$paged = $_POST['paged'];
 		$per_page = $_POST['posts_per_page'];
 		$prev_pages = $paged - 1;
 
 		$moar = true;
 		$remove = array();
-
-		// $filters = $_POST['filters'];
-
-		// foreach( $filters as $name => $value ) {
-		// 	if( 'false' === $value ) {
-		// 		$remove[] = $name;
-		// 	}
-		// }
 
 		if( ! is_user_logged_in() ) {
 			$remove[] = 'offer';
@@ -245,7 +253,7 @@ class WaaChristmasTouchpoints
 		}
 
 		foreach( $posts as $post ) {
-			$content .= $this->buildPagedContent($post, $count, $remove);
+			$content .= $this->buildPagedContent($post, $count, $remove, $post_id);
 			$count--;
 		}
 
@@ -259,13 +267,12 @@ class WaaChristmasTouchpoints
 			'content' => $content,
 			'paged'   => $paged,
 			'moar'    => $moar,
-			'remove'  => $remove,
 		));
 
 		die( $response );
 	}
 
-	private function buildPagedContent($post, $count, $remove)
+	private function buildPagedContent($post, $count, $remove, $post_id)
 	{
 		$rows = get_field('waa_touchpoints', $post->ID);
 
@@ -296,6 +303,8 @@ class WaaChristmasTouchpoints
 									<p><?php echo $row['waa_ctp_content']; ?></p>
 									<p><a href="<?php echo $row['waa_ctp_link']; ?>">Read more &rsaquo;</a></p>
 
+									<?php $this->shareTools($post_id); ?>
+
 								</div>
 							</section>
 							<?php
@@ -325,6 +334,27 @@ class WaaChristmasTouchpoints
 			</label>
 		</div>
 		<?php
+	}
+
+	public function shareTools($post_id, $contentID = false, $echo = true)
+	{
+		$content_hash = '';
+
+		if( $contentID ) {
+			// Make content hash for URL
+		}
+
+		// FACEBOOK & TWITTER
+		$share_tools = '<div class="advent-day__share">';
+		$share_tools .= '<a href="https://www.facebook.com/sharer/sharer.php?u=' . urlencode( get_the_permalink($post_id) ) . '" target="_blank" class="post-facebook-share"><i class="fa fa-facebook-square"></i><span> Share</span></a>';
+		$share_tools .= '<a href="https://twitter.com/share?url=' . urlencode( get_the_permalink($post_id) ) . '&text=' . urlencode( get_the_title($post_id) ) . '" target="_blank" class="post-twitter-share"><i class="fa fa fa-twitter"></i><span> Tweet</span></a>';
+		$share_tools .= '</div>';
+
+		if( $echo ) {
+			echo $share_tools;
+		} else {
+			return $share_tools;
+		}
 	}
 
 	public function pagination($query)

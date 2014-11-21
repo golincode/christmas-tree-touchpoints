@@ -1,10 +1,11 @@
 // Modular JS file
 MOBILE = (function ($) {
 
-	var paged = 0,
-		perPage = 0,
-		$fallback = $('#tree-fallback'),
+	var $fallback = $('#tree-fallback'),
 		$pagination = $('.touchpoint-articles-pagination'),
+		paged = 0,
+		perPage = $fallback.data('per-page'),
+		postID = $fallback.data('post-id'),
 		doingAjax = false,
 		FILTERS = {},
 
@@ -167,7 +168,6 @@ MOBILE = (function ($) {
 				doingAjax = true;
 
 				paged = $fallback.data('paged');
-				perPage = $fallback.data('per-page');
 
 				// Add loading gif
 				$pagination.addClass('loading');
@@ -182,7 +182,8 @@ MOBILE = (function ($) {
 				var args = {
 					'action': 'waa_pagination_content',
 					'paged': paged,
-					'posts_per_page': perPage
+					'posts_per_page': perPage,
+					'post_id': postID
 				};
 
 				MOD_AJAX.post(args, renderPaginationContent);

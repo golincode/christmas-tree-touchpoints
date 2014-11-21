@@ -2,21 +2,36 @@
 CONTENT = (function ($) {
 
 	var CONTENT = [],
+		FILTERS = {},
 
 		init = function () {
 			var loader = $('<div />');
 
+			readyFilters();
+
 			$(loader).addClass('touchpoints-loading-content');
 			$(loader).html('<p>Loading stories...</p>');
 			$('#xmas-tree').append(loader);
+			var postID = $('#tree-fallback').data('post-id');
 
 			var args = {
-				'action': 'waa_get_tp_content'
+				'action': 'waa_get_tp_content',
+				'filters': FILTERS,
+				'post_id': postID
 			};
 
 			MOD_AJAX.post(args, prepareDayItems);
 
 			$('#xmas-tree').on('click', '.advent-day__close', closePopup);
+			$('.tp-filter').on('click', '.toggle-switch__option', filterDayContent);
+		},
+
+		reset = function() {
+			CONTENT = [];
+			TARGETS = [];
+
+			$('#xmas-tree').off('click', '.advent-day__close', closePopup);
+			$('.tp-filter').off('click', '.toggle-switch__option', filterDayContent);
 		},
 
 		prepareDayItems = function(data) {
@@ -55,6 +70,31 @@ CONTENT = (function ($) {
 
 		},
 
+		readyFilters = function() {
+			var filters = $('input.toggle-switch__input');
+
+			for( var i=0; i<filters.length; i++ ) {
+				name = $(filters[i]).val();
+
+				FILTERS[name] = $(filters[i]).prop('checked');
+			}
+		},
+
+		filterDayContent = function() {
+			var $this = $(this),
+				forInput = $this.attr('for'),
+				$input = $('input#' + forInput),
+				name = $input.val();
+
+			console.log('hello');
+
+			setTimeout(function () {
+				FILTERS[name] = $input.prop('checked');
+				reset();
+				XMAS_TREE.build(true);
+			}, 400);
+		},
+
 		renderContentPopup = function(day, idx) {
 			var content = CONTENT[day][idx],
 				popup = '';
@@ -65,6 +105,7 @@ CONTENT = (function ($) {
 			popup += '<h3><i class="advent-day__icon advent-day__icon--' + content.type + '"></i>' + content.title + '</h3>';
 			popup += '<p>' + content.content + '</p>';
 			popup += '<p><a href="' + content.link + '">Read more &rsaquo;</a></p>';
+			popup += content.share;
 			popup += '</div>';
 			popup += '<button type="button" class="advent-day__close"></button>';
 
@@ -93,6 +134,7 @@ CONTENT = (function ($) {
 
 	return {
 		go : init,
+		reset : reset,
 
 		renderContent : renderContentPopup
 	};

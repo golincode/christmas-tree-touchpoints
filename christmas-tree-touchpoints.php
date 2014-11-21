@@ -52,3 +52,7 @@ function waa_toggle_switch($option) {
 function waa_touchpoints_pagination($query) {
 	WaaChristmasTouchpoints::pagination($query);
 }
+
+function waa_share_tools($post_id) {
+	WaaChristmasTouchpoints::shareTools($post_id);
+}

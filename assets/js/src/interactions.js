@@ -37,6 +37,9 @@ INTERACTIONS = (function ($) {
 			mouseX = e.offsetX;
 			mouseY = e.offsetY;
 
+			// console.log(e.pageX);
+			// console.log(e.pageY);
+
 			var cnv = document.getElementById('tree-canvas');
 
 			sx = cnv.offsetWidth / cnv.width;

@@ -101,4 +101,16 @@
 			}
 		}
 	}
+
+	&__share {
+		@extend %clearfix;
+		margin-bottom:10px;
+
+		a {
+			float:left;
+			margin-right:16px;
+			font-family:$font-tesco-bold;
+			@include font-size(14);
+		}
+	}
 }
