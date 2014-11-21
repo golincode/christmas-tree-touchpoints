@@ -26,7 +26,7 @@ MOBILE = (function ($) {
 				onEnter: function() {
 					readyFilters();
 					filtersDropdown();
-					// window.addEventListener('scroll', findPagination, false);
+
 					$(window).on('scroll', findPagination);
 
 					$('.tp-filter').on('click', '.toggle-switch__option', prepareFilter);

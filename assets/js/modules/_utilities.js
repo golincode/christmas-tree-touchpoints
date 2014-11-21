@@ -94,6 +94,39 @@ UTILS = (function () {
 				timeout = setTimeout(later, wait);
 				if (callNow) func.apply(context, args);
 			};
+		},
+
+		/**
+		 * Function to highlight each branches area on the tree.
+		 * Use these calculations to work out the range to place
+		 * items on the tree
+		 *
+		 * @author Adam Onishi (aonishi@wearearchitect.com)
+		 */
+		highlightBranches = function() {
+			var pos = {
+				x: start.left,
+				y: start.top + hTop
+			};
+
+			var color = 0;
+
+			for( var i=0; i<=branches; i++ ) {
+				color+= 50;
+
+				c.fillStyle = 'hsla(' + color + ',100%,50%,0.3)';
+
+				highlightW = ((15*i) - 30) * 2;
+				highlightH = 65;
+
+				if( i === branches ) {
+					highlightH = hBottom;
+					highlightW+= 20;
+				}
+
+				c.fillRect(pos.x-highlightW/2,pos.y, highlightW, highlightH );
+				pos.y+=65;
+			}
 		};
 
 	return {
