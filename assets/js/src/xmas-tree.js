@@ -89,14 +89,8 @@ XMAS_TREE = (function () {
 				RENDER.items(c, branch, day, items, rows);
 			}
 
-			// console.log(Modernizr);
-
-			// if( Modernizr.touch ) {
-			// 	document.addEventListener('touchend', INTERACTIONS.clickHandler, false);
-			// } else {
-				canvas.onclick = INTERACTIONS.clickHandler;
-				document.addEventListener('mousemove', INTERACTIONS.hover, false);
-			// }
+			canvas.onclick = INTERACTIONS.clickHandler;
+			document.addEventListener('mousemove', INTERACTIONS.hover, false);
 		};
 
 	return {

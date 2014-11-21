@@ -371,12 +371,18 @@ class WaaChristmasTouchpoints
 			'prev_text'    => __('‹'),
 			'next_text'    => __('›'),
 		) );
-		?>
 
-		<div class="pagination btn-container waa-pagination">
-			<?php echo str_replace( 'page-numbers', 'btn', $pagination ); ?>
-		</div>
-		<?php
+		if( !empty($pagination) ) {
+			?>
+
+			<div class="touchpoint-articles-pagination">
+				<div class="pagination btn-container waa-pagination">
+					<?php echo str_replace( 'page-numbers', 'btn', $pagination ); ?>
+				</div>
+			</div>
+			<?php
+		}
+
 	}
 
 	public function setupPostType()

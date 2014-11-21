@@ -28,7 +28,9 @@ MOBILE = (function ($) {
 					readyFilters();
 					filtersDropdown();
 
-					$(window).on('scroll', findPagination);
+					if( $pagination.length ) {
+						$(window).on('scroll', findPagination);
+					}
 
 					$('.tp-filter').on('click', '.toggle-switch__option', prepareFilter);
 				},
