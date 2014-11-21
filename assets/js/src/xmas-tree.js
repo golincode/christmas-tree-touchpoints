@@ -89,7 +89,7 @@ XMAS_TREE = (function () {
 				RENDER.items(c, branch, day, items, rows);
 			}
 
-			console.log(Modernizr);
+			// console.log(Modernizr);
 
 			// if( Modernizr.touch ) {
 			// 	document.addEventListener('touchend', INTERACTIONS.clickHandler, false);

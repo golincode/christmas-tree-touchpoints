@@ -86,8 +86,6 @@ CONTENT = (function ($) {
 				$input = $('input#' + forInput),
 				name = $input.val();
 
-			console.log('hello');
-
 			setTimeout(function () {
 				FILTERS[name] = $input.prop('checked');
 				reset();
