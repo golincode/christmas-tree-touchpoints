@@ -24,22 +24,6 @@ get_header(); ?>
 
 			<?php
 
-
-			global $paged;
-			$prev_pages = $paged - 1;
-			$per_page = 4;
-
-			$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=' . $per_page . '&paged=' . $paged);
-
-
-			$found = $touchpoints->found_posts;
-			if( $paged > 0 ) {
-				$count = $found - ($per_page * $prev_pages);
-			} else {
-				$count = $found;
-			}
-
-
 			$filter_class = 'tp-filter__list';
 
 			if( is_user_logged_in() ):
@@ -87,11 +71,27 @@ get_header(); ?>
 				</ul>
 			</div>
 
-			<div class="touchpoints-tree-container" data-days="<?php echo $count; ?>">
+			<?php
+			global $paged;
+			$prev_pages = $paged - 1;
+			$per_page = 2;
+			$page_id = get_the_ID();
+
+			$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=' . $per_page . '&paged=' . $paged);
+
+			$found = $touchpoints->found_posts;
+			if( $paged > 0 ) {
+				$count = $found - ($per_page * $prev_pages);
+			} else {
+				$count = $found;
+			}
+			?>
+
+			<div id="xmas-tree" class="touchpoints-tree-container" data-days="<?php echo $count; ?>">
 				<!-- Xmas tree goes here! -->
 			</div>
 
-			<div class="touchpoints-articles-container">
+			<div id="tree-fallback" class="touchpoints-articles-container" data-paged="<?php echo $paged; ?>" data-per-page="<?php echo $per_page; ?>" data-post-id="<?php echo $page_id; ?>">
 
 				<?php if( $touchpoints->have_posts() ): while( $touchpoints->have_posts() ): $touchpoints->the_post(); ?>
 
@@ -105,7 +105,7 @@ get_header(); ?>
 
 								<?php if( 'offer' !== get_sub_field('waa_ctp_icon') || is_user_logged_in() ): ?>
 
-									<section class="advent-day__item" data-type="<?php the_sub_field('waa_ctp_icon'); ?>">
+									<section class="advent-day__item advent-day__item--<?php the_sub_field('waa_ctp_icon'); ?>">
 
 										<?php if( get_sub_field('waa_ctp_image') ): ?>
 
@@ -118,7 +118,7 @@ get_header(); ?>
 											<h3><i class="advent-day__icon advent-day__icon--<?php the_sub_field('waa_ctp_icon'); ?>"></i><?php the_sub_field('waa_ctp_title'); ?></h3>
 											<p><?php the_sub_field('waa_ctp_content'); ?></p>
 											<p><a href="<?php the_sub_field('waa_ctp_link'); ?>">Read more &rsaquo;</a></p>
-
+											<?php waa_share_tools($page_id); ?>
 										</div>
 
 									</section>
@@ -136,11 +136,11 @@ get_header(); ?>
 
 				endwhile; endif; ?>
 
-				<div class="touchpoint-articles-pagination">
-					<?php waa_touchpoints_pagination($touchpoints); ?>
-				</div>
-
 			</div> <!-- /.touchpoint-articles-container -->
+
+			<div class="touchpoint-articles-pagination">
+				<?php waa_touchpoints_pagination($touchpoints); ?>
+			</div>
 
 		</div><!-- .container -->
 
