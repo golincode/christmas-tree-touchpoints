@@ -74,7 +74,7 @@ get_header(); ?>
 			<?php
 			global $paged;
 			$prev_pages = $paged - 1;
-			$per_page = 2;
+			$per_page = 24;
 			$page_id = get_the_ID();
 
 			$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=' . $per_page . '&paged=' . $paged);
@@ -138,9 +138,7 @@ get_header(); ?>
 
 			</div> <!-- /.touchpoint-articles-container -->
 
-			<div class="touchpoint-articles-pagination">
-				<?php waa_touchpoints_pagination($touchpoints); ?>
-			</div>
+			<?php waa_touchpoints_pagination($touchpoints); ?>
 
 		</div><!-- .container -->
 
