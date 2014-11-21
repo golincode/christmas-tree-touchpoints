@@ -68,6 +68,17 @@ CONTENT = (function ($) {
 				}
 			}
 
+			checkForDeepLink();
+
+		},
+
+		checkForDeepLink = function() {
+			if( window.location.hash ) {
+				var hash = window.location.hash.replace('#content-', ''),
+					ids = hash.split('-');
+
+				renderContentPopup(ids[0], ids[1]);
+			}
 		},
 
 		readyFilters = function() {

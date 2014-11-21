@@ -119,7 +119,7 @@ class WaaChristmasTouchpoints
 			wp_enqueue_style( 'waa-xmas', $plugin_url . 'css/xmas.css', false, $this->version, 'screen' );
 
 			wp_enqueue_script( 'waa-tree-modernizr', $plugin_url . 'js/modernizr.js', false, $this->version, false );
-			wp_enqueue_script( 'waa-tree-script', $plugin_url . 'js/christmas-tree-touchpoints.min.js', array('jquery'), $this->version, true );
+			wp_enqueue_script( 'waa-tree-script', $plugin_url . 'js/christmas-tree-touchpoints.js', array('jquery'), $this->version, true );
 
 
 			$ajaxData = array(
