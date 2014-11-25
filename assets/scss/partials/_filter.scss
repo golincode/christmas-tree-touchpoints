@@ -12,11 +12,11 @@
 		position:relative;
 		margin:0;
 		padding:10px;
-		color:$clr-white;
+		color:$clr-dark;
 		@include font-size(20);
 		font-family:$font-tesco-handmade-bold;
 		text-transform:uppercase;
-		background-color:$clr-header;
+		// background-color:$clr-header;
 
 		&:after {
 			content:'';
@@ -36,8 +36,6 @@
 			float:left;
 			width:14%;
 			padding:30px 5px 0 15px;
-			color:$clr-dark;
-			@include font-size(20);
 			background-color:transparent;
 
 			@include has-feature('has-js') {
