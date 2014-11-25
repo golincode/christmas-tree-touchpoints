@@ -30,6 +30,8 @@ CONTENT = (function ($) {
 			CONTENT = [];
 			TARGETS = [];
 
+			closePopup();
+
 			$('#xmas-tree').off('click', '.advent-day__close', closePopup);
 			$('.tp-filter').off('click', '.toggle-switch__option', filterDayContent);
 		},

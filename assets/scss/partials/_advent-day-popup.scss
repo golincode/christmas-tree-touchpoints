@@ -4,10 +4,21 @@
 	left:50%;
 	width:380px;
 	margin-left:-190px;
-	padding:20px;
-	background-color:$clr-white;
+	padding:40px 20px 20px;
+	background:$clr-white url(../images/popup/candy-canes.jpg) 0 95% no-repeat;
 	box-shadow:2px 2px 7px rgba($clr-black, 0.4);
 	transform:translateY(-50%);
+
+	&:before {
+		content:'';
+		display:block;
+		position:absolute;
+		top:-60px;
+		left:0;
+		width:380px;
+		height:102px;
+		background:transparent url(../images/popup/banner.png) 0 0 no-repeat;
+	}
 
 	.advent-day__content {
 		float:left;
@@ -26,7 +37,7 @@
 
 .advent-day__close {
 	position:absolute;
-	top:10px;
+	top:50px;
 	right:10px;
 	width:16px;
 	height:16px;
