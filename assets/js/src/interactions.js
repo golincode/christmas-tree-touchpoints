@@ -58,6 +58,10 @@ INTERACTIONS = (function ($) {
 					var day = TARGETS[i].day,
 						idx = TARGETS[i].idx;
 
+					if( $('.advent-day__item--popup').length ) {
+						CONTENT.close();
+					}
+				
 					CONTENT.renderContent(day, idx);
 				}
 			}

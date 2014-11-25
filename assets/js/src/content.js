@@ -128,7 +128,9 @@ CONTENT = (function ($) {
 		},
 
 		closePopup = function(e) {
-			e.preventDefault();
+			if( e ) {
+				e.preventDefault();	
+			}
 
 			$('#xmas-tree').find('.advent-day__item--popup').fadeOut(400, function () {
 				$(this).remove();
@@ -144,6 +146,7 @@ CONTENT = (function ($) {
 	return {
 		go : init,
 		reset : reset,
+		close : closePopup,
 
 		renderContent : renderContentPopup
 	};

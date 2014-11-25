@@ -354,8 +354,15 @@ class WaaChristmasTouchpoints
 		$share_tools = '<div class="advent-day__share">';
 		$share_tools .= '<a href="https://www.facebook.com/sharer/sharer.php?u=' . urlencode( $url ) . '" target="_blank" class="post-facebook-share"><i class="fa fa-facebook-square"></i><span> Share</span></a>';
 		$share_tools .= '<a href="https://twitter.com/share?url=' . urlencode( $url ) . '&text=' . urlencode( get_the_title($post_id) ) . '" target="_blank" class="post-twitter-share"><i class="fa fa fa-twitter"></i><span> Tweet</span></a>';
+		
+		// YAM IT
+		if( is_user_logged_in() ) {
+			$share_tools .= '<a href="javascript:var d=document,w=window,e=w.getSelection,k=d.getSelection,x=d.selection,s=(e?e():(k)?k():(x?x.createRange().text:0)),f="https://www.yammer.com/home/bookmarklet",l=d.location,e=encodeURIComponent,p="?bookmarklet_pop=1&amp;v=1&amp;u="+e(l.href)%20+"&amp;t="+e(d.title.replace(/^ *| *$/g,""))%20+"&amp;s="+e(s),u=f+p;a=function()%20{if%20(!window.open(u,"sharer","toolbar=0,status=0,resizeable=1,width=650,height=550"))l.href=f+p};if%20(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else{a()}void(0);" class="yammer-send"><img src="/wp-content/themes/ourtesco/images/common/yammer-icon.png" alt="Yammer icon"><span>Yam it!</span></a>';
+		}
+
 		$share_tools .= '</div>';
 
+		
 		if( $echo ) {
 			echo $share_tools;
 		} else {
