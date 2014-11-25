@@ -11,7 +11,7 @@ XMAS_TREE = (function () {
 
 		start = {
 			left: UTILS.winW / 2,
-			top: 100
+			top: 30
 		},
 
 		hTop = 125, // Top section of the tree
