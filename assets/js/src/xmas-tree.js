@@ -24,11 +24,15 @@ XMAS_TREE = (function () {
 			canvas.setAttribute('id', 'tree-canvas');
 			document.getElementById('xmas-tree').appendChild(canvas);
 			document.getElementById('tree-fallback').style.display = 'none';
-			// document.body.appendChild(canvas);
 
-			canvas.width = UTILS.winW;
+			SETTINGS.main.width = UTILS.winW;
+			SETTINGS.main.height = start.top + hTop + hMiddle + hBottom + RENDER.trunkHeight + 60; // + 60 for presents - keeps the background in a good place
+
+			canvas.width = SETTINGS.main.width;
 			// Add ALL THE THINGS
-			canvas.height = start.top + hTop + hMiddle + hBottom + RENDER.trunkHeight + 60; // + 60 for presents - keeps the background in a good place
+			canvas.height = SETTINGS.main.height;
+
+			document.getElementById('xmas-tree').style.height = SETTINGS.main.height + 'px';
 
 			// Get the canvas Context to draw to
 			c = canvas.getContext('2d');
@@ -65,6 +69,8 @@ XMAS_TREE = (function () {
 			RENDER.snow(c);
 
 			CONTENT.go();
+
+			ANIMATIONS.go();
 		},
 
 		setupDays = function(days, itemsArray) {

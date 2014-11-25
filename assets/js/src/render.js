@@ -11,7 +11,8 @@ RENDER = (function () {
 			'decorations': ['bell', 'candy-stick', 'yellow-ribbon', 'star', 'presents'],
 			'items': ['facebook', 'facebook-glow', 'twitter', 'twitter-glow', 'news', 'news-glow', 'youtube', 'youtube-glow', 'offer', 'offer-glow', 'yammer', 'yammer-glow' ],
 			'ribbon-big': ['ribbon', 'ribbon-glow'],
-			'leaves': ['top', 'left-1', 'left-2', 'left-3', 'left-4', 'middle-1', 'middle-2', 'middle-3', 'middle-4', 'right-1', 'right-2', 'right-3', 'right-4', 'side-left-1', 'side-left-2', 'side-right-1', 'side-right-2']
+			'leaves': ['top', 'left-1', 'left-2', 'left-3', 'left-4', 'middle-1', 'middle-2', 'middle-3', 'middle-4', 'right-1', 'right-2', 'right-3', 'right-4', 'side-left-1', 'side-left-2', 'side-right-1', 'side-right-2'],
+			'twinkles': ['twinkle', 'twinkle_x2']
 		},
 
 		treeSide = function(c, leftSide) {

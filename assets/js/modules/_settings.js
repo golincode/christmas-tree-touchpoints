@@ -19,6 +19,11 @@ var ASSETS = [],
 			top: 100
 		},
 
+		main: {
+			width: 0,
+			height: 0
+		},
+
 		hTop: 125, // Top section of the tree
 		hMiddle: 65 * BRANCHES, // Middle section of branches
 		hBottom: 60 + (2*BRANCHES), // bottom section of the tree
