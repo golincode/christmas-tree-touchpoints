@@ -1,12 +1,13 @@
 .advent-day__item--popup {
-	position:absolute;
-	top:20px;
+	position:fixed;
+	top:50%;
 	left:50%;
 	width:380px;
 	margin-left:-190px;
 	padding:20px;
 	background-color:$clr-white;
 	box-shadow:2px 2px 7px rgba($clr-black, 0.4);
+	transform:translateY(-50%);
 
 	.advent-day__content {
 		float:left;
