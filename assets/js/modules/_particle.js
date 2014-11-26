@@ -67,10 +67,13 @@ function imageParticle(img, posx, posy) {
 		if(this.alpha<0) this.alpha = 0; 
 		
 		// rotate the particle by the spin amount. 
-		this.rotation += this.spin; 
-		
-	
-		
+		this.rotation += this.spin;
+
+		if(this.x>SETTINGS.main.width) {
+			this.x = 0; 
+		} else if(this.x<0) {
+			this.x = SETTINGS.main.width;
+		}
 	 
 	};
 	

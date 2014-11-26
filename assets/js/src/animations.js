@@ -11,12 +11,12 @@ ANIMATIONS = (function () {
 			document.getElementById('xmas-tree').appendChild(flakes_canvas);
 
 			flakes_canvas.width = SETTINGS.main.width;
-			flakes_canvas.height = SETTINGS.main.height;
+			flakes_canvas.height = (SETTINGS.main.height * 0.92);
 
 			// Get the canvas Context to draw to
 			ctx = flakes_canvas.getContext('2d');
 
-			makeParticle(5);
+			makeParticle(10);
 			setInterval(snowflakes_loop, 1000 / 30);
 		},
 
@@ -33,7 +33,8 @@ ANIMATIONS = (function () {
 				//var particle = new ImageParticle(particleImage, mouseX, mouseY); 
 				
 				// give it a random x and y velocity
-				particle.velX = UTILS.random(0.1,3);
+				// particle.velX = UTILS.random(0.1,3);
+				particle.velX = Math.random()*3 - 0.75; 
 				switch(imgNum) {
 					case(1):
 						particle.velY = UTILS.random(4,8);
@@ -47,12 +48,7 @@ ANIMATIONS = (function () {
 				}
 				
 				particle.size = 1;
-				particle.gravity = 0; 
-				// particle.drag = 0.98;
-				// particle.shrink = 0.97; 
-				
-				// sets the blend mode so snowflakes are drawn with an additive blend
-				particle.compositeOperation = 'lighter';
+				particle.gravity = 0;
 				
 				// add it to the array
 				snowflakes.push(particle); 
@@ -75,9 +71,6 @@ ANIMATIONS = (function () {
 				particle.update();
 						
 			}
-			
-			// Keep taking the oldest snowflakes away until we have 
-			// fewer than the maximum allowed. 
 			 
 			// while(snowflakes.length>MAXFLAKES)
 			// 	snowflakes.shift(); 
