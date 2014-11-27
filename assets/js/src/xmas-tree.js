@@ -66,7 +66,7 @@ XMAS_TREE = (function () {
 			RENDER.leaves(c, branches);
 			RENDER.decs(c);
 
-			RENDER.snow(c);
+			// RENDER.snow(c);
 
 			CONTENT.go();
 
