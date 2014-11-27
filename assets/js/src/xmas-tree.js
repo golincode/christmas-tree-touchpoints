@@ -60,7 +60,7 @@ XMAS_TREE = (function () {
 				canvas.onclick = null;
 				document.removeEventListener('mousemove', INTERACTIONS.hover, false);
 			} else {
-				ANIMATIONS.go();
+				ANIMATIONS.snow();
 			}
 
 			RENDER.trunk(c, branches);
@@ -99,6 +99,12 @@ XMAS_TREE = (function () {
 				RENDER.ribbon(c, day, branch);
 				RENDER.items(c, branch, day, items, rows);
 			}
+
+			/** Comment out for prod
+			if( Modernizr.pointerevents ) {
+				ANIMATIONS.twinkles();
+			}
+			**/
 
 			canvas.onclick = INTERACTIONS.clickHandler;
 			document.addEventListener('mousemove', INTERACTIONS.hover, false);

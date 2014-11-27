@@ -20,8 +20,14 @@
 	background:url('../images/background/background.png') 50% 0 no-repeat;
 }
 
-#flakes-canvas { z-index:0; }
-#twinkles-canvas { z-index:100; }
+#flakes-canvas {
+	z-index:0;
+}
+
+#twinkle-canvas {
+	z-index:100;
+	pointer-events:none;
+}
 
 .touchpoints-loading-content {
 	position:absolute;

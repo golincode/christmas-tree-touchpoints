@@ -1,12 +1,16 @@
 // Modular JS file
 ANIMATIONS = (function () {
 
-	var MAXFLAKES = 500,
+	var MAXFLAKES = 200,
 		snowflakes = [],
+		twinkles = [],
 		delayCounter = 0,
 		delayTime = 15,
+		twinkleDelayCount = 0,
+		twinkleDelayTime = 2,
+		twinkleTargets = [],
 
-		init = function () {
+		initSnowflakes = function () {
 			// Create the canvas and add to page
 			flakes_canvas = document.createElement('canvas');
 			flakes_canvas.setAttribute('id', 'flakes-canvas');
@@ -86,12 +90,85 @@ ANIMATIONS = (function () {
 
 		},
 
-		twinkles = function () {
+		initTwinkles = function () {
+			// Get items
+			var twinkleCount = ( DAYS > 4 ) ? 4 : DAYS;
 
+			twinkleTargets = UTILS.shuffle(TARGETS).slice(-twinkleCount);
+
+			twinkle_canvas = document.createElement('canvas');
+			twinkle_canvas.setAttribute('id', 'twinkle-canvas');
+			document.getElementById('xmas-tree').appendChild(twinkle_canvas);
+
+			twinkle_canvas.width = SETTINGS.main.width;
+			twinkle_canvas.height = SETTINGS.main.height;
+
+			// Get the canvas Context to draw to
+			tctx = twinkle_canvas.getContext('2d');
+
+			setInterval(twinkles_loop, 1000 / 30);
+		},
+
+
+		twinkles_loop = function() {
+			// Make particles
+			if( twinkleDelayCount > twinkleDelayTime ) {
+				for( i=0; i<twinkleTargets.length;i++ ) {
+					makeTwinkleParticle(1, twinkleTargets[i]);
+				}
+				twinkleDelayCount = 0;
+			}
+
+
+			// clear the canvas
+		  	tctx.clearRect(0,0, SETTINGS.main.width, SETTINGS.main.height);
+
+		  	// iteratate through each particle
+			for (i=0; i<twinkles.length; i++) {
+				var particle = twinkles[i];
+
+				// render it
+				particle.render(tctx);
+
+				// and then update. We always render first so particle
+				// appears in the starting point.
+				particle.update();
+			}
+
+			twinkleDelayCount++;
+
+			while(twinkles.length>MAXFLAKES)
+				twinkles.shift();
+
+		},
+
+		makeTwinkleParticle = function(particleCount, target) {
+			var twinkleImage = UTILS.getImage('twinkles','twinkle-big'),
+				startX = target.x + (target.size/2),
+				startY = target.y + (target.size/2);
+
+			for(var i=0; i<particleCount;i++) {
+
+				// create a new particle in the middle of the stage
+				var particle = new imageParticle(twinkleImage, startX, startY);
+
+				particle.velX = UTILS.random(-3,3);
+				particle.velY = UTILS.random(-3,3);
+
+				particle.size = UTILS.random(0.2,0.4);
+				particle.gravity = 0;
+				particle.drag = 1;
+				particle.shrink = 1.07;
+				particle.fade = 0.06;
+
+				// add it to the array
+				twinkles.push(particle);
+			}
 		};
 
 	return {
-		go : init
+		snow : initSnowflakes,
+		twinkles : initTwinkles
 	};
 
 })();
