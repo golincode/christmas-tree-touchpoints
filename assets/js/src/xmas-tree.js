@@ -38,6 +38,10 @@ XMAS_TREE = (function () {
 			c = canvas.getContext('2d');
 
 			UTILS.loadImages(RENDER.images, buildTree);
+
+			var presTop = hTop + hMiddle + 60;
+
+			canvas.style.backgroundPosition = '50% ' + presTop + 'px';
 		},
 
 		reset = function() {

@@ -13,7 +13,7 @@ ANIMATIONS = (function () {
 			document.getElementById('xmas-tree').appendChild(flakes_canvas);
 
 			flakes_canvas.width = SETTINGS.main.width;
-			flakes_canvas.height = (SETTINGS.main.height * 0.93);
+			flakes_canvas.height = SETTINGS.main.height;
 
 			// Get the canvas Context to draw to
 			ctx = flakes_canvas.getContext('2d');
