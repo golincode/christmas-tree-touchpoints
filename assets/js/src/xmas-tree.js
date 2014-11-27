@@ -59,6 +59,8 @@ XMAS_TREE = (function () {
 
 				canvas.onclick = null;
 				document.removeEventListener('mousemove', INTERACTIONS.hover, false);
+			} else {
+				ANIMATIONS.go();
 			}
 
 			RENDER.trunk(c, branches);
@@ -70,11 +72,10 @@ XMAS_TREE = (function () {
 			RENDER.leaves(c, branches);
 			RENDER.decs(c);
 
+			// No need for static snow now there's falling snow
 			// RENDER.snow(c);
 
 			CONTENT.go();
-
-			ANIMATIONS.go();
 		},
 
 		setupDays = function(days, itemsArray) {
