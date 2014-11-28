@@ -420,7 +420,7 @@ class WaaChristmasTouchpoints
 		$args = array(
 			'labels'              => $labels,
 			'public'              => true,
-			'rewrite'             => array( 'slug' => 'every-little-helpers' ),
+			'rewrite'             => array( 'slug' => 'touchpoints' ),
 			'capability_type'     => 'post',
 			'has_archive'         => false,
 			'exclude_from_search' => true,
