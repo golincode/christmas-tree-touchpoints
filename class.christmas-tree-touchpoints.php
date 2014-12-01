@@ -426,7 +426,7 @@ class WaaChristmasTouchpoints
 			'exclude_from_search' => true,
 			'show_in_nav_menus'   => false,
 			'hierarchical'        => false,
-			'publicly_queryable'  => false,
+			'publicly_queryable'  => true,
 			'menu_position'       => 2,
 			'menu_icon'           => 'dashicons-star-filled',
 			'supports'            => array( 'title', 'author', 'revisions', 'page-attributes' ),
