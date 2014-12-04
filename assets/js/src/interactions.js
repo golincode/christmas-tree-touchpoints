@@ -6,8 +6,8 @@ INTERACTIONS = (function ($) {
 		itemSize = 40,
 
 		hoverEffect = function (e) {
-			mouseX = e.offsetX;
-			mouseY = e.offsetY;
+			mouseX = e.offsetX === undefined ? e.layerX : e.offsetX;
+			mouseY = e.offsetY === undefined ? e.layerY : e.offsetY;
 
 			var cnv = document.getElementById('tree-canvas');
 
@@ -34,8 +34,8 @@ INTERACTIONS = (function ($) {
 		},
 
 		clickHandler = function(e) {
-			mouseX = e.offsetX;
-			mouseY = e.offsetY;
+			mouseX = e.offsetX === undefined ? e.layerX : e.offsetX;
+			mouseY = e.offsetY === undefined ? e.layerY : e.offsetY;
 
 			var cnv = document.getElementById('tree-canvas');
 
@@ -61,7 +61,7 @@ INTERACTIONS = (function ($) {
 					if( $('.advent-day__item--popup').length ) {
 						CONTENT.close();
 					}
-				
+
 					CONTENT.renderContent(day, idx);
 				}
 			}
