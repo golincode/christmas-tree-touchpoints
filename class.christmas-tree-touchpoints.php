@@ -262,7 +262,7 @@ class WaaChristmasTouchpoints
 			$count--;
 		}
 
-		if( $count = 1 ) {
+		if( $count < 1 ) {
 			$moar = false;
 		}
 
@@ -272,6 +272,7 @@ class WaaChristmasTouchpoints
 			'content' => $content,
 			'paged'   => $paged,
 			'moar'    => $moar,
+			'count'   => $count,
 		));
 
 		die( $response );
