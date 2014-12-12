@@ -245,7 +245,7 @@ class WaaChristmasTouchpoints
 
 		$content = '';
 		$count = 0;
-		$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=' . $per_page . '&paged' . $paged . '&order=ASC');
+		$touchpoints = new WP_Query('post_type=waa_xmas_touchpoints&posts_per_page=' . $per_page . '&paged=' . $paged);
 
 		$posts = $touchpoints->posts;
 
